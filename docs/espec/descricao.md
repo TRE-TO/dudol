@@ -9,7 +9,9 @@ Uma comunicação ativa é quando um sistema cliente interage ativamente com o d
 
 Um sistema cliente chamará ativamente o dudol na seguinte forma:
 
-htpp://link_dudol/[servico/]{default|provedor}/operacao/parametros
+**http://link_dudol/[servico/]{default|provedor}/operacao/?parametros**
+
+Onde:
 
 - servico: É uma informação opicional que identifica um serviço de comunicação externa, se for omitido o sistema cliente deseja enviar uma informação diretamente para o provedor, e não para um serviço de comunicação externa. Pode ter uma dos seguintes valores:
   - sms: para envio de SMS;
@@ -24,20 +26,20 @@ htpp://link_dudol/[servico/]{default|provedor}/operacao/parametros
   - receber: quando desejar receber uma informação do serviço (se houver algo disponível)[1];
 - parametros: são as informações necessárias para que a operação seja concluída;
 
-Exemplo:
+Exemplos de uso:
 
 1. Enviar e-mail:
-  - htpp://link_dudol/email/default/enviar/?to=abruno@tre-to.jus.br&subject=Teste&body=Olá Mundo
-  - htpp://link_dudol/email/treto/enviar/?to=contato@abruno.com&subject=Outro Teste&body=Mais um teste
+  - http://link_dudol/email/default/enviar/?to=abruno@tre-to.jus.br&subject=Teste&body=Olá Mundo
+  - http://link_dudol/email/treto/enviar/?to=contato@abruno.com&subject=Outro Teste&body=Mais um teste
 2. Enviar SMS
-  - htpp://link_dudol/sms/conectta/enviar/?to=6399990000&body=Olá Mundo
-  - htpp://link_dudol/sms/default/enviar/?to=6300009999&body=Olá Mundo
+  - http://link_dudol/sms/conectta/enviar/?to=6399990000&body=Olá Mundo
+  - http://link_dudol/sms/default/enviar/?to=6300009999&body=Olá Mundo
 3. Gravar uma tarefa no PadLog
-  - htpp://link_dudol/padlog/enviar/?task_id=1432&status=concluida&data=10/01/2013
+  - http://link_dudol/padlog/enviar/?task_id=1432&status=concluida&data=10/01/2013
 4. Ler uma informação do SistemaX[1]
-  - htpp://link_dudol/SistemaX/receber/?my_id=sistemay
+  - http://link_dudol/sistemaX/receber/?my_id=sistemay
 5. Verificar SMS
-  - htpp://link_dudol/sms/default/verificar/?envio_id=12998
+  - http://link_dudol/sms/default/verificar/?envio_id=12998
 
 Comunicação Passiva
 --------------------

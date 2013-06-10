@@ -40,6 +40,9 @@ Exemplos de uso:
   - http://link_dudol/sistemaX/receber/?my_id=sistemay
 5. Verificar SMS
   - http://link_dudol/sms/default/verificar/?envio_id=12998
+6. Twittar uma mensagem
+  - http://link_dudol/twitter/default/enviar/?msg=TRE-TO terá inaguração de cartório hoje.
+  - http://link_dudol/twitter/fortes/enviar/?msg=Inscrição para FORTES2014 inicia hoje.
 
 Comunicação Passiva
 --------------------

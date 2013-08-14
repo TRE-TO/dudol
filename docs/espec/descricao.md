@@ -43,10 +43,10 @@ Comunicação Passiva
 Uma comunicação Passiva é quando o Dudol está configurado para chamar o sistema cliente, notadamente quando o provedor tiver novas informações para o sistema cliente.
 
 A configuração deverá ser feita da seguinte forma:
-- identificação do ponto de entrada do sistema cliente (banco de dados ou webservice)
-- identificação das informações de entrada no sistema cliente (no mesmo local que é usado ativamente) [1]
-- periodicidade mínima e máxima para a busca por informação (opicional?)
-- se o Dudol deve informar que fez a consulta, mesmo se não houver nada novo
+- identificação do ponto de entrada do sistema cliente (banco de dados ou webservice);
+- identificação das informações de entrada no sistema cliente (no mesmo local que é usado ativamente) [1];
+- periodicidade mínima e máxima para a busca por informação (opicional?);
+- se o Dudol deve informar que fez a consulta, mesmo se não houver nada novo.
 
 Provedores
 ----------
@@ -66,4 +66,4 @@ São os sistemas que recebem informações vindos dos sistemas clientes. O Dudol
 
 Notas
 -----
-[1] deverá haver uma configuração de como o sistema cliente recebe a informação de retorno do Dudol
+[1] deverá haver uma configuração de como o sistema cliente recebe a informação de retorno do Dudol.

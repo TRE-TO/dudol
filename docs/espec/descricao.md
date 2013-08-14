@@ -11,23 +11,13 @@ Uma comunicação ativa é quando um sistema cliente interage ativamente com o D
 
 Um sistema cliente chamará ativamente o Dudol na seguinte forma:
 
-`http://link_dudol/[servico/]{default|provedor}/operacao/?parametros`
+`http://url_dudol/provedor/operação/?parâmetros`
 
 Onde:
 
-- **servico**: É uma informação que identifica o tipo de destinatário da comunicação. Pode ter uma dos seguintes valores:
-  - sms: para envio de SMS;
-  - email: para envio de email;
-  - twitter: para envio de tweet com uma conta específica;
-  - facebook: para envio de postagem em página do facebook com conta específica;
-  - system: para enviar uma mensagem para um sistema específico, conhecido pelo Dudol.
-- **default**: indica que o Dudol irá selecionar o provedor do serviço, esta informação só é válida para os serviços, se cliente quiser enviar uma informação diretamente a um provedor deverá especificá-lo;
 - **provedor**: indica um provedor do serviço configurado no Dudol, e.g.:treto, conectta, ascom, SADP, PadLog;
-- **operacao**: identifica uma das seguintes operações:
-  - enviar: quando deseja enviar uma informação ao serviço;
-  - verificar: quando deseja verificar o status de uma operação de envio;
-  - receber: quando desejar receber uma informação do serviço (se houver algo disponível)[1];
-- **parametros**: são as informações necessárias para que a operação seja concluída;
+- **operação**: identifica a operação a ser chamada no serviço;
+- **parâmetros**: são as informações necessárias para que a operação seja concluída;
 
 Exemplos de uso:
 

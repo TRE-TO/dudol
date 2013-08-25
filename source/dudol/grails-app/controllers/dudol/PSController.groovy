@@ -1,28 +1,34 @@
 package dudol
 
-import java.io.IOException;
-import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.Channel;
+import java.io.IOException
+import com.rabbitmq.client.ConnectionFactory
+import com.rabbitmq.client.Connection
+import com.rabbitmq.client.Channel
 
 import grails.converters.JSON
 
 class PSController {
 
+	LogService logService
+
     def enviar() {
-		ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
-        Connection connection = factory.newConnection();
-        Channel channel = connection.createChannel();
 
-        channel.exchangeDeclare(params.grupo, "fanout");
+		ConnectionFactory factory = new ConnectionFactory()
+        factory.setHost("localhost")
+        Connection connection = factory.newConnection()
+        Channel channel = connection.createChannel()
 
-        String message = params.t
+        String exchange = params.grupo
 
-        channel.basicPublish(params.grupo, "", null, message.getBytes());
-        System.out.println(" [x] Enviado: '" + message + "'");
+        channel.exchangeDeclare(exchange, "fanout")
 
-        channel.close();
-        connection.close();
+        String message = params.msg
+
+        channel.basicPublish(exchange, "", null, message.getBytes())
+
+        channel.close()
+        connection.close()
+
+        logService.registrarLog(exchange, request.getRemoteAddr())
    }
 }

@@ -10,6 +10,7 @@ import grails.converters.JSON
 class PSController {
 
 	LogService logService
+    DestinoService destinoService
 
     def enviar() {
 
@@ -18,17 +19,15 @@ class PSController {
         Connection connection = factory.newConnection()
         Channel channel = connection.createChannel()
 
-        String exchange = params.grupo
+        println destinoService.gerarParametros(params.exchange, params.destino)
 
-        channel.exchangeDeclare(exchange, "fanout")
+        channel.exchangeDeclare(params.exchange, "fanout")
 
-        String message = params.msg
-
-        channel.basicPublish(exchange, "", null, message.getBytes())
+        channel.basicPublish(params.exchange, "", null, params.msg.getBytes())
 
         channel.close()
         connection.close()
 
-        logService.registrarLog(exchange, request.getRemoteAddr())
+        logService.registrarLog(params.exchange, request.getRemoteAddr())
    }
 }

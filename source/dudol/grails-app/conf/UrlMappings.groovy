@@ -1,7 +1,7 @@
 class UrlMappings {
 
 	static mappings = {
-		"/$controller/$grupo"(action: "enviar")
+		"/$controller/$exchange/$destino?"(action: "enviar")
 
 //		"/$controller/$action?/$id?"{
 //			constraints {

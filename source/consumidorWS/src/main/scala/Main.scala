@@ -19,7 +19,7 @@ object Hi {
 		val queueName = channel.queueDeclare().getQueue()
 		channel.queueBind(queueName, exchange, "")
 
-		println(" [*] Waiting for messages. To exit press CTRL+C")
+		println(" [*] Aguardando mensagens. Para sair, digite CTRL+C")
 
 		val consumer = new QueueingConsumer(channel)
 		channel.basicConsume(queueName, true, consumer)
@@ -28,7 +28,7 @@ object Hi {
 			val delivery = consumer.nextDelivery()
 			val message = new String(delivery.getBody())
 
-			println(" [x] Received '" + message + "'")
+			new Thread() { override def run() = println(" [*] Recebeu: " + message) }.start()
 		}
 
 	}

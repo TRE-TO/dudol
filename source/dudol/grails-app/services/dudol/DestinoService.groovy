@@ -10,10 +10,10 @@ class DestinoService {
     		Destino.executeQuery("""select d.parametros
     								from Destino as d
     								where d.provedor.exchange = :exchange and d.chave = :chaveDestino""",
-    							 [exchange: exchange, chaveDestino: chaveDestino]).encodeAsJSON()
+    							 [exchange: exchange, chaveDestino: chaveDestino])
     	}
     	else {
-    		Destino.executeQuery("select d.parametros from Destino as d where d.provedor.exchange = ?", [exchange]).encodeAsJSON()
+    		Destino.executeQuery("select d.parametros from Destino as d where d.provedor.exchange = ?", [exchange])
     	}
     }
 }

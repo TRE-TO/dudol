@@ -3,7 +3,7 @@ import com.rabbitmq.client.ConnectionFactory
 import com.rabbitmq.client.Connection
 import com.rabbitmq.client.Channel
 import com.rabbitmq.client.QueueingConsumer
-import dispatch._, Defaults._
+// import dispatch._, Defaults._
 
 object Hi {
 	
@@ -33,16 +33,21 @@ object Hi {
 				override def run() = {
 					println(" [*] Recebeu: " + message)
 
-					val svc = url("http://api.hostip.info/country.php")
-					val country = Http(svc OK as.String)
-					for (c <- country)
-						println(c)
-
 					import spray.json._
 					import DefaultJsonProtocol._
 
 					val jsonAst = message.asJson
-					println(jsonAst.prettyPrint)
+					val msg = jsonAst.asJsObject.getFields("dados", "conf") match {
+						case Seq(JsObject(dados), JsObject(conf)) => List(dados, conf("url"))
+						case _ => Nil
+					}
+
+					import dispatch._, Defaults._
+					val svc = url(msg.tail.head.toString().replaceAll("\"", ""))
+					val country = Http(svc OK as.String)
+					for (c <- country)
+						println(c)
+
 				}
 			}.start()
 		}

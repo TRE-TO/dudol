@@ -13,12 +13,12 @@ import grails.converters.JSON
 
 class PSController {
 
-	LogService logService
+    LogService logService
     DestinoService destinoService
 
     def enviar() {
 
-		ConnectionFactory factory = new ConnectionFactory()
+	ConnectionFactory factory = new ConnectionFactory()
         factory.setHost("localhost")
         Connection connection = factory.newConnection()
         Channel channel = connection.createChannel()
@@ -51,5 +51,4 @@ class PSController {
         }
         conf        
     }
-
 }

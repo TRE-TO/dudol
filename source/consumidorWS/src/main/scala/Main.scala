@@ -3,9 +3,13 @@ import com.rabbitmq.client.ConnectionFactory
 import com.rabbitmq.client.Connection
 import com.rabbitmq.client.Channel
 import com.rabbitmq.client.QueueingConsumer
-// import dispatch._, Defaults._
 
-object Hi {
+import spray.json._
+import DefaultJsonProtocol._
+
+import dispatch._, Defaults._
+
+object Main {
 	
 	def main(args: Array[String]) = {
 
@@ -31,23 +35,13 @@ object Hi {
 
 			new Thread() { 
 				override def run() = {
-					println(" [*] Recebeu: " + message)
+					val jsonObj = message.asJson.asJsObject
+					val conf = jsonObj.getFields("conf")(0).convertTo[Map[String, String]]
+					val dados = jsonObj.getFields("dados")(0).convertTo[Map[String, String]]
 
-					import spray.json._
-					import DefaultJsonProtocol._
-
-					val jsonAst = message.asJson
-					val msg = jsonAst.asJsObject.getFields("dados", "conf") match {
-						case Seq(JsObject(dados), JsObject(conf)) => List(dados, conf("url"))
-						case _ => Nil
-					}
-
-					import dispatch._, Defaults._
-					val svc = url(msg.tail.head.toString().replaceAll("\"", ""))
-					val country = Http(svc OK as.String)
-					for (c <- country)
-						println(c)
-
+					val post = url(conf("url"))
+					def postComBody = post << dados
+					Http(postComBody OK as.String)		
 				}
 			}.start()
 		}

@@ -43,6 +43,10 @@ grails.project.dependency.resolution = {
 
         // runtime 'mysql:mysql-connector-java:5.1.22'
         runtime "com.rabbitmq:amqp-client:3.1.4"
+        compile 'org.apache.httpcomponents:httpclient:4.3'
+        compile 'org.apache.httpcomponents:httpclient-cache:4.3'
+        compile 'org.apache.httpcomponents:httpmime:4.3'
+        compile 'org.apache.httpcomponents:fluent-hc:4.3'
     }
 
     plugins {

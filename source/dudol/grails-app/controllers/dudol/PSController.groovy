@@ -9,6 +9,8 @@ import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.ObjectOutputStream
 
+import org.apache.http.client.fluent.Request
+
 import grails.converters.JSON
 
 class PSController {
@@ -18,7 +20,26 @@ class PSController {
 
     def enviar() {
 
-	ConnectionFactory factory = new ConnectionFactory()
+        if (request.method == 'GET') {
+            repassar()
+        }
+        else if (request.method == 'POST') {
+            enfileirar()
+        }
+
+        logService.registrarLog(params.exchange, request.getRemoteAddr())
+
+        render ''
+    }
+
+    private repassar() {
+        String url = getConfMap(params.exchange, params.destino)['url'] + '?' + request.queryString
+
+        render Request.Get(url).execute().returnContent().asString()
+    }
+
+    private enfileirar() {
+        ConnectionFactory factory = new ConnectionFactory()
         factory.setHost("localhost")
         Connection connection = factory.newConnection()
         Channel channel = connection.createChannel()
@@ -32,14 +53,9 @@ class PSController {
 
         channel.exchangeDeclare(params.exchange, "fanout")
         channel.basicPublish(params.exchange, "", null, msgJson.getBytes())
-        println " [*] Enviado: ${msgJson}"
 
         channel.close()
         connection.close()
-
-        logService.registrarLog(params.exchange, request.getRemoteAddr())
-
-        render ''
     }
 
     private getConfMap(String exchange, String destino) {

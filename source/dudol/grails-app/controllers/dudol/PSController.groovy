@@ -34,11 +34,10 @@ class PSController {
         }
         else if (request.method == 'POST') {
             enfileirar()
+            render ''
         }
 
         logService.registrarLog(params.exchange, request.getRemoteAddr())
-
-        render ''
     }
 
     private repassar() {
@@ -57,17 +56,23 @@ class PSController {
                     if (status >= 200 && status < 300) {
                         HttpEntity entity = response.getEntity()
                         return entity != null ? EntityUtils.toString(entity) : null
-                    } else {
-                        throw new ClientProtocolException("Unexpected response status: " + status)
+                    }
+                    else {
+                        throw new ClientProtocolException(String.valueOf(status))
                     }
                 }
 
             }
-            String responseBody = httpclient.execute(httpget, responseHandler)
-            render responseBody
+            render httpclient.execute(httpget, responseHandler)
+        }
+        catch (ClientProtocolException e) {
+            int statusorig = Integer.parseInt(e.message)
+            int status = response.status = (statusorig < 300) ? 400 : statusorig
+            render 'ERRO - Status ' + status
         }
         catch (Exception e) {
-            render 'ERRO'
+            int status = response.status = 400
+            render 'ERRO - Status ' + status
         }
         finally {
             httpclient.close()

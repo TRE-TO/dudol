@@ -46,9 +46,7 @@ class PSController {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         try {
             HttpGet httpget = new HttpGet(url)
-
             ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
-
                 public String handleResponse(
                         final HttpResponse response) throws ClientProtocolException, IOException {
                     int status = response.getStatusLine().getStatusCode()
@@ -61,21 +59,21 @@ class PSController {
                         throw new ClientProtocolException(String.valueOf(status))
                     }
                 }
-
             }
             render httpclient.execute(httpget, responseHandler)
         }
         catch (ClientProtocolException e) {
             int statusorig = Integer.parseInt(e.message)
             int status = response.status = (statusorig < 300) ? 400 : statusorig
-            render 'ERRO - Status ' + status
         }
         catch (Exception e) {
             int status = response.status = 400
-            render 'ERRO - Status ' + status
         }
         finally {
             httpclient.close()
+            String erro = 'Status: ' + status + '<br/>URL usada: ' + url
+            render 'ERRO - ' + erro
+            log.error erro
         }
     }
 

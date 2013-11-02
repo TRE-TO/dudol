@@ -11,12 +11,12 @@ O Dudol é um barramento de serviços para comunicação entre sistemas de uma m
 
 ## Comunicação Ativa
 Os elementos presentes na Comunicação Ativa são os seguintes:
-[Comunicação Ativa](/docs/images/com-ativa.png "Comunicação Ativa")
+![Comunicação Ativa](/docs/images/com-ativa.png "Comunicação Ativa")
 
 
 ## Comunicação Passiva
 Os elementos presentes na Comunicação Passiva são os seguintes:
-[Comunicação Passiva](/docs/images/com-passiva.png "Comunicação Passiva")
+![Comunicação Passiva](/docs/images/com-passiva.png "Comunicação Passiva")
 
 
 ## Tecnologias Utilizadas

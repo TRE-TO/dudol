@@ -11,12 +11,12 @@ O Dudol é um barramento de serviços para comunicação entre sistemas de uma m
 
 ## Comunicação Ativa
 Os elementos presentes na Comunicação Ativa são os seguintes:
-[Comunicação Ativa](/imagens/com-ativa.png "Comunicação Ativa")
+![Comunicação Ativa](/docs/images/com-ativa.png "Comunicação Ativa")
 
 
 ## Comunicação Passiva
 Os elementos presentes na Comunicação Passiva são os seguintes:
-[Comunicação Passiva](/imagens/com-passiva.png "Comunicação Passiva")
+![Comunicação Passiva](/docs/images/com-passiva.png "Comunicação Passiva")
 
 
 ## Tecnologias Utilizadas
@@ -26,11 +26,33 @@ Os elementos presentes na Comunicação Passiva são os seguintes:
 * [Scala](http://scala-lang.org): utilizada para criar os consumidores da mensageria.
  
 
-## Instalação
+## Instalação e Execução
 
-### Baixar e Instalar o RabbitMQ
+### Baixar e Executar o RabbitMQ
 
+As instruções sobre como baixar e executar o RabbitMQ encontram-se [aqui](http://www.rabbitmq.com/download.html). Geralmente basta executá-lo, sem nenhuma configuração adicional.
 
-### 
-- 
+### Executando a Camada Web
 
+*    **Instalar o Grails:**
+    
+    Primeiramente, deve-se verificar a versão do Grails usada no arquivo [application.properties](/source/dudol/application.properties). (Esta versão não foi colocada aqui explicitamente pois ela pode mudar em futuros commits, gerando o risco desta documentação ficar desatualizada.)
+     
+    Para instalar o Grails, uma opção prática é utilizar o [GVM](http://gvmtool.net). Com o GVM instalado, basta executar:
+    > gvm install grails \<versão no application.properties\>
+
+*    **Alterar as configurações de acesso a banco de dados:**
+
+    Alterar o arquivo [DataSource.groovy](/source/dudol/grails-app/conf/DataSource.groovy) para que ele aponte para o banco de dados desejado. Instruções de como configurar o banco de dados podem ser encontradas [aqui](http://grails.org/doc/latest/guide/conf.html#dataSource).
+    
+    Se for utilizado um banco de dados diferente do H2 (padrão), também será necessário adicionar o respectivo driver JDBC à aplicação. Isto pode ser feito adicionando-se a respectiva dependência na cláusula *dependencies* no arquivo [BuildConfig.groovy](/source/dudol/grails-app/conf/BuildConfig.groovy). Já existe um exemplo comentado para o caso do driver JDBC para o MySQL. A definição destas dependêncies segue as mesmas regras de arquivos pom.xml do Maven, com a diferença de que o groupId, artifactId e versão são separadas por :.
+    
+*    **Executar a aplicação Grails**
+    
+    Para executar em modo de desenvolvimento, entre no diretório *dudol/source/dudol* e execute o comando **grails run-app**. Pronto!
+
+    Para funcionar em produção você irá preferir executar o comanto **grails war**. Será gerado um arquivo .war, no diretório *dudol/source/dudol/target*.
+    
+### Build dos Consumidores da Mensageria
+
+TODO

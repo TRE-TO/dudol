@@ -29,7 +29,7 @@
 		
 	</label>
 	<div class="col-sm-10">
-		<g:textField name="username" class="form-control" class="form-control" value="${emailInstance?.username}"/>
+		<g:textField name="username" class="form-control" value="${emailInstance?.username}"/>
 	</div>
 </div>
 

@@ -16,6 +16,7 @@
 		<div class="page-header">
 		  <h1><g:message code="default.edit.label" args="[entityName]" /><small>Coloque um aposto aqui</small></h1>
 		</div>
+
 		<g:if test="${flash.message}">
 			<div class="alert alert-success">${flash.message}</div>
 		</g:if>
@@ -31,7 +32,7 @@
 					</g:eachError>
 				</div>
 			</g:hasErrors>
-			<g:form url="[resource:HTTPServiceInstance, action:'update']" method="PUT" >
+			<g:form url="[controller: 'HTTPServiceAdmin', action:'update']" method="PUT" >
 				<g:hiddenField name="version" value="${HTTPServiceInstance?.version}" />
 				<g:render template="form"/>
 				<div class="form-group">

@@ -40,7 +40,7 @@ class HTTPServiceAdminController {
         request.withFormat {
             form {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'HTTPServiceInstance.label', default: 'HTTPService'), HTTPServiceInstance.id])
-                redirect HTTPServiceInstance
+                redirect action: 'index'
             }
             '*' { respond HTTPServiceInstance, [status: CREATED] }
         }

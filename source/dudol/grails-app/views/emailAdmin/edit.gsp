@@ -24,7 +24,7 @@
 				</g:hasErrors>
 				<g:form url="[resource:emailInstance, action:'update']" method="PUT" class="form-horizontal" role="form">
 					<g:hiddenField name="version" value="${emailInstance?.version}" />
-						<g:render template="form"/>
+					<g:render template="form"/>
 					<div class="form-group">
 	        			<div class="col-sm-offset-2 col-sm-10">
 							<g:actionSubmit class="btn btn-default" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />

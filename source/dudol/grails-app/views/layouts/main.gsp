@@ -48,8 +48,8 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li <g:if test="${controllerName == 'sistema'}">class="active"</g:if>><a href="<g:createLink controller="sistemas"/>">Sistemas</a></li>
-            <li <g:if test="${controllerName == 'emailAdmin'}">class="active"</g:if>><a href="<g:createLink controller="email"/>">Emails</a></li>
+            <li <g:if test="${controllerName == 'HTTPServiceAdmin'}">class="active"</g:if>><a href="<g:createLink controller="HTTPServiceAdmin"/>">Serviços HTTP</a></li>
+            <li <g:if test="${controllerName == 'emailAdmin'}">class="active"</g:if>><a href="<g:createLink controller="EmailAdmin"/>">Emails</a></li>
             <li <g:if test="${controllerName == 'agendamento'}">class="active"</g:if>><a href="<g:createLink controller="agendamento"/>">Agendamento</a></li>
             <!--li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>

@@ -6,7 +6,7 @@ class BootStrap {
     def init = { servletContext ->
     	new Email(host: "smtp.gmail.com", port: 485, username: "michaelss@gmail.com", password: "erpexeolvofwtbpg", ssl: true).save()
     	new HTTPService(key: 'tre', baseUrl: 'http://www.tre-to.jus.br/').save()
-    	new Schedule(executable: 'sh /home/michael/script.py', rateInSeconds: 1).save(flush: true)
+    	new Schedule(key: 'script1', executable: 'sh /home/michael/script.py', rateInSeconds: 1).save(flush: true)
 
     	scheduleFromDB()
     }
@@ -24,9 +24,11 @@ class BootStrap {
 					Runtime.getRuntime().exec(s.executable)
         		}
     		},
-    		60L,
+    		30L,
     		new Long(s.rateInSeconds),
     		TimeUnit.SECONDS)
+
+            ScheduleRefManager.add(s.key, scheduledFuture)
     	}
     }
 }

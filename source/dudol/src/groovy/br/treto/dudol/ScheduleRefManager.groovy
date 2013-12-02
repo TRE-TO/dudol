@@ -1,17 +1,26 @@
 package br.treto.dudol
 
-import java.util.concurrent.ScheduledFuture
+import java.util.concurrent.*
 
 class ScheduleRefManager {
 	
 	private static Map<String,ScheduledFuture> refs = new HashMap<String,ScheduledFuture>()
 
-	public static add(String key, ScheduledFuture handle) {
-		refs.put(key, handle)
+	private static ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(5)
 
-        for (s in Schedule.findAll()) {
-            println s.key
-        }
+	public static start(Schedule schedule, Long startIn = 10) {
+		ScheduledFuture scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
+			public void run() {
+				Runtime.getRuntime().exec(schedule.executable)
+    		}
+		},
+		startIn,
+		new Long(schedule.rateInSeconds),
+		TimeUnit.SECONDS)
+
+		println "[DUDOL] Agendando tarefa '${schedule.key}' para início em ${startIn} segundos....."
+
+		refs.put(schedule.key, scheduledFuture)
 	}
 
 	public static cancel(String key) {

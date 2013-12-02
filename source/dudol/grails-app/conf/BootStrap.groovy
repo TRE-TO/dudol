@@ -1,5 +1,4 @@
 import br.treto.dudol.*
-import java.util.concurrent.*
 
 class BootStrap {
 
@@ -14,21 +13,8 @@ class BootStrap {
     }
 
     def scheduleFromDB() {
-    	println '[DUDOL] Agendando tarefas para início em 60 segundos.....'
-
-    	ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(5)
-    	
     	for (s in Schedule.findAll()) {
-			ScheduledFuture scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
-				public void run() {
-					Runtime.getRuntime().exec(s.executable)
-        		}
-    		},
-    		30L,
-    		new Long(s.rateInSeconds),
-    		TimeUnit.SECONDS)
-
-            ScheduleRefManager.add(s.key, scheduledFuture)
+            ScheduleRefManager.start(s, 30L)
     	}
     }
 }

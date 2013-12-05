@@ -8,7 +8,7 @@
 		
 	</label>
 	<div class="col-sm-10">
-		<g:textField name="executable" value="${scheduleInstance?.executable}"/>
+		<g:textField class="form-control" name="executable" value="${scheduleInstance?.executable}"/>
 	</div>
 </div>
 
@@ -18,7 +18,7 @@
 		
 	</label>
 	<div class="col-sm-10">
-		<g:textField name="key" value="${scheduleInstance?.key}"/>
+		<g:textField class="form-control" name="key" value="${scheduleInstance?.key}"/>
 	</div>
 </div>
 
@@ -28,7 +28,7 @@
 		<span class="required-indicator">*</span>
 	</label>
 	<div class="col-sm-10">
-		<g:field name="rateInSeconds" type="number" value="${scheduleInstance.rateInSeconds}" required=""/>
+		<g:field class="form-control"  name="rateInSeconds" type="number" value="${scheduleInstance.rateInSeconds}" required=""/>
 	</div>
 </div>
 

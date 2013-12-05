@@ -13,17 +13,18 @@
     		<h1><g:message code="default.create.label" args="[entityName]" /> <small>Novo cadastro</small></h1>
 		</div>
 
+		<g:if test="\${flash.message}">
+			<div class="alert alert-success">\${flash.message}</div>
+		</g:if>
+
 		<div id="create-${domainClass.propertyName}" class="panel panel-default" role="main">
 			<div class="panel-body">
-				<g:if test="\${flash.message}">
-					<div class="message" role="status">\${flash.message}</div>
-				</g:if>
 				<g:hasErrors bean="\${${propertyName}}">
-					<ul class="errors" role="alert">
+					<div class="alert alert-danger" role="alert">
 						<g:eachError bean="\${${propertyName}}" var="error">
-							<li <g:if test="\${error in org.springframework.validation.FieldError}">data-field-id="\${error.field}"</g:if>><g:message error="\${error}"/></li>
+							<p <g:if test="\${error in org.springframework.validation.FieldError}">data-field-id="\${error.field}"</g:if>><g:message error="\${error}"/></p>
 						</g:eachError>
-					</ul>
+					</div>
 				</g:hasErrors>
 				<g:form url="[resource:${propertyName}, action:'save']" <%= multiPart ? ' enctype="multipart/form-data"' : '' %> role="form" class="form-horizontal">
 					<g:render template="form"/>

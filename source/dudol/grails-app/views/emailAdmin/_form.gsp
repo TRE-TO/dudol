@@ -46,7 +46,7 @@
 <div class="form-group fieldcontain ${hasErrors(bean: emailInstance, field: 'ssl', 'error')} ">
 	<label for="ssl" class="col-sm-2 control-label">SSL</label>
 	<div class="col-sm-10">
-		<g:checkBox name="ssl" class="form-control" value="${emailInstance?.ssl}" />
+		<g:checkBox name="ssl" value="${emailInstance?.ssl}" />
 	</div>
 </div>
 

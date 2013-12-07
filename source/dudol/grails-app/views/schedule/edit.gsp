@@ -11,7 +11,7 @@
 			<p><g:link class="list" action="index"><span class="glyphicon glyphicon-list"></span>&nbsp;<g:message code="default.list.label" args="[entityName]" /></g:link></p>
 		</div>
 		<div class="page-header">
-		  <h1><g:message code="default.edit.label" args="[entityName]" /> <small>Coloque um aposto aqui</small></h1>
+			<h1>Agendamento <small>Editar</small></h1>
 		</div>
 
 		<g:if test="${flash.message}">
@@ -27,7 +27,7 @@
 						</g:eachError>
 					</div>
 				</g:hasErrors>
-				<g:form url="[resource:scheduleInstance, action:'update']" method="PUT"  role="form" class="form-horizontal">
+				<g:form url="[resource:scheduleInstance, action:'update']" method="PUT" role="form" class="form-horizontal">
 					<g:hiddenField name="version" value="${scheduleInstance?.version}" />
 					<g:render template="form"/>
 					<div class="form-group">

@@ -3,6 +3,7 @@ package br.treto.dudol
 import org.apache.commons.mail.HtmlEmail
 import org.apache.commons.mail.SimpleEmail
 import org.apache.commons.mail.DefaultAuthenticator
+import org.apache.commons.mail.EmailException
 import javax.mail.internet.InternetAddress
 import javax.mail.internet.AddressException
 
@@ -48,7 +49,14 @@ class EmailController {
 		ccList.each{ if (it) email.addCc(it) }
 		bccList.each{ if (it) email.addBcc(it) }
 
-		email.send()
+		try {
+			email.send()
+		}
+		catch (EmailException ex) {
+			render(status: 400, text: 'Ocorreu um problema ao enviar o email: ' + ex.getMessage())
+		}
+
+		render(status: 200, text: 'Email enviado.')
 	}
 
 	private List<String> validar(params) {

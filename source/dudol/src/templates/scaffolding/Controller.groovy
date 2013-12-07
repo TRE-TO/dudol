@@ -38,7 +38,8 @@ class ${className}Controller {
         request.withFormat {
             form {
                 flash.message = message(code: 'default.created.message', args: [message(code: '${propertyName}.label', default: '${className}'), ${propertyName}.id])
-                redirect ${propertyName}
+                redirect action: 'index'
+                // redirect ${propertyName}
             }
             '*' { respond ${propertyName}, [status: CREATED] }
         }
@@ -65,7 +66,8 @@ class ${className}Controller {
         request.withFormat {
             form {
                 flash.message = message(code: 'default.updated.message', args: [message(code: '${className}.label', default: '${className}'), ${propertyName}.id])
-                redirect ${propertyName}
+                redirect action: 'index'
+                // redirect ${propertyName}
             }
             '*'{ respond ${propertyName}, [status: OK] }
         }

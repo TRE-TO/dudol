@@ -8,7 +8,7 @@
 		<span class="required-indicator">*</span>
 	</label>
 	<div class="col-sm-10">
-		<g:field type="url" name="baseUrl" class="form-control" value="${HTTPServiceInstance?.baseUrl}"/>
+		<g:field type="url" name="baseUrl" class="form-control" value="${HTTPServiceInstance?.baseUrl}" required=""/>
 	</div>
 </div>
 
@@ -18,7 +18,7 @@
 		<span class="required-indicator">*</span>
 	</label>
 	<div class="col-sm-10">
-		<g:textField name="key" class="form-control" value="${HTTPServiceInstance?.key}"/>
+		<g:textField name="key" class="form-control" value="${HTTPServiceInstance?.key}" required=""/>
 	</div>
 </div>
 

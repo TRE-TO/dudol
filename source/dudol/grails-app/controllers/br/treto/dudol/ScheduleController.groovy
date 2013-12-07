@@ -40,7 +40,7 @@ class ScheduleController {
         request.withFormat {
             form {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'scheduleInstance.label', default: 'Schedule'), scheduleInstance.id])
-                redirect scheduleInstance
+                redirect action: 'index'
             }
             '*' { respond scheduleInstance, [status: CREATED] }
         }
@@ -67,7 +67,7 @@ class ScheduleController {
         request.withFormat {
             form {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Schedule.label', default: 'Schedule'), scheduleInstance.id])
-                redirect scheduleInstance
+                redirect action: 'index'
             }
             '*'{ respond scheduleInstance, [status: OK] }
         }

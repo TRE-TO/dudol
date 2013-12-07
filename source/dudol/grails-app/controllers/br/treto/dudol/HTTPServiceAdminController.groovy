@@ -67,7 +67,7 @@ class HTTPServiceAdminController {
         request.withFormat {
             form {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'HTTPService.label', default: 'HTTPService'), HTTPServiceInstance.id])
-                redirect HTTPServiceInstance
+                redirect action: 'index'
             }
             '*'{ respond HTTPServiceInstance, [status: OK] }
         }

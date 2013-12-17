@@ -30,13 +30,16 @@ O Dudol fará requisições ao serviços HTTP utilizando o mesmo verbo HTTP (GET
 
 ## Emails
 Para enviar emails, deve-se fazer uma requisição HTTP POST para o endereço <url_base_dudol>/email/enviar, passando os seguintes parâmetros:
-* from: email de origem (obrigatório).
+* from: email de origem (obrigatório). Caso o servidor de emails requeira autenticação, ele poderá não ser respeitado, sendo apresentado como remetente o usuário que possui as credenciais utilizadas na autenticação.
 * fromname: nome da pessoa ou entidade que está enviando o email (obrigatório).
 * subject: assunto (obrigatório).
 * message: corpo do email (obrigatório).
 * to: lista de emails de destino (obrigatório).
 * cc: lista de emails para os quais o email deve ir como cópia (opcional).
 * bcc: lista de emails para os quais o email deve ir como cópia oculta (opcional).
+* html: flag que indica que o email contém conteúdo HTML (opcional - se não informado, o email não formatará o conteúdo HTML).
+
+As configurações de emails requerem apenas cinco valores, como mostra a figura, que é autoexplicativa.
 
 
 ## Tecnologias Utilizadas

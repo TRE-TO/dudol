@@ -26,21 +26,26 @@ O Dudol fará requisições ao serviços HTTP utilizando o mesmo verbo HTTP (GET
 
 ## Comunicação Passiva
 
+A Comunicação Passiva, na verdade, refere-se a um agendamento, em que um programa ou script pode ser executado com a frequência definida. A figura abaixo, apresenta a tela para agendamentos, que é autoexplicativa. O campo **key** serve apenas como documentação.
+
+![Configurações de agendamento](/docs/images/agendamento.png "Configurações de agendamento")
+
 
 
 ## Emails
 Para enviar emails, deve-se fazer uma requisição HTTP POST para o endereço <url_base_dudol>/email/enviar, passando os seguintes parâmetros:
-* from: email de origem (obrigatório). Caso o servidor de emails requeira autenticação, ele poderá não ser respeitado, sendo apresentado como remetente o usuário que possui as credenciais utilizadas na autenticação.
-* fromname: nome da pessoa ou entidade que está enviando o email (obrigatório).
-* subject: assunto (obrigatório).
-* message: corpo do email (obrigatório).
-* to: lista de emails de destino (obrigatório).
-* cc: lista de emails para os quais o email deve ir como cópia (opcional).
-* bcc: lista de emails para os quais o email deve ir como cópia oculta (opcional).
-* html: flag que indica que o email contém conteúdo HTML (opcional - se não informado, o email não formatará o conteúdo HTML).
+* **from**: email de origem (obrigatório). Caso o servidor de emails requeira autenticação, ele poderá não ser respeitado, sendo apresentado como remetente o usuário que possui as credenciais utilizadas na autenticação.
+* **fromname**: nome da pessoa ou entidade que está enviando o email (obrigatório).
+* **subject**: assunto (obrigatório).
+* **message**: corpo do email (obrigatório).
+* **to**: lista de emails de destino (obrigatório).
+* **cc**: lista de emails para os quais o email deve ir como cópia (opcional).
+* **bcc**: lista de emails para os quais o email deve ir como cópia oculta (opcional).
+* **html**: flag que indica que o email contém conteúdo HTML (opcional - se não informado, o email não formatará o conteúdo HTML).
 
-As configurações de emails requerem apenas cinco valores, como mostra a figura, que é autoexplicativa.
+As configurações de emails requerem apenas cinco valores, como mostra a figura abaixo, que é autoexplicativa, sendo que apenas **host** e **port** são obrigatórios.
 
+![Configurações de email](/docs/images/email.png "Configurações de email")
 
 ## Tecnologias Utilizadas
 

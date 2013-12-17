@@ -26,6 +26,10 @@ O Dudol fará requisições ao serviços HTTP utilizando o mesmo verbo HTTP (GET
 
 ## Comunicação Passiva
 
+A Comunicação Passiva, na verdade, refere-se a um agendamento, em que um programa ou script pode ser executado com a frequência definida. A figura abaixo, apresenta a tela para agendamentos, que é autoexplicativa. O campo **key** serve apenas como documentação.
+
+![Configurações de agendamento](/docs/images/agendamento.png "Configurações de agendamento")
+
 
 
 ## Emails

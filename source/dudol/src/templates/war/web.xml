@@ -92,8 +92,24 @@
 
     <security-constraint>
         <web-resource-collection>
+            <web-resource-name>Public operations</web-resource-name>
+            <url-pattern>/email/*</url-pattern>
+            <url-pattern>/httpservice/*</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
             <web-resource-name>Wildcard means whole app requires authentication</web-resource-name>
-            <url-pattern>/*</url-pattern>
+            <url-pattern>/emailAdmin/*</url-pattern>
+            <url-pattern>/HTTPServiceAdmin/*</url-pattern>
+            <url-pattern>/Schedule/*</url-pattern>
+            <url-pattern>/</url-pattern>
             <http-method>GET</http-method>
             <http-method>POST</http-method>
         </web-resource-collection>

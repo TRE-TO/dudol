@@ -51,24 +51,9 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li <g:if test="${controllerName == 'HTTPServiceAdmin'}">class="active"</g:if>><a href="<g:createLink controller="HTTPServiceAdmin"/>">Serviços HTTP</a></li>
+            <li <g:if test="${controllerName == 'HTTPServiceAdmin'}">class="active"</g:if>><a href="<g:createLink controller="HTTPServiceAdmin"/>"><g:message code="top.httpservice"/></a></li>
             <li <g:if test="${controllerName == 'emailAdmin'}">class="active"</g:if>><a href="<g:createLink controller="EmailAdmin"/>">Emails</a></li>
-            <li <g:if test="${controllerName == 'schedule'}">class="active"</g:if>><a href="<g:createLink controller="Schedule"/>">Agendamento</a></li>
-            <!--li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li-->
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="logout">Sair</a></li>
+            <li <g:if test="${controllerName == 'schedule'}">class="active"</g:if>><a href="<g:createLink controller="Schedule"/>"><g:message code="top.schedule"/></a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

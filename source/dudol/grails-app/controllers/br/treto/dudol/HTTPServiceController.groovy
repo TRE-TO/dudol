@@ -29,7 +29,17 @@ import org.apache.http.message.BasicNameValuePair
 @Transactional(readOnly = true)
 class HTTPServiceController {
 
-	static allowedMethods = [get: 'GET', post: 'POST', testPost: 'POST']
+	static allowedMethods = [processRequest: ['GET', 'POST']]
+
+    def processRequest() {
+        if (request.method == 'GET') get()
+        else {
+            if (post())
+                render(status: 200, text: 'Dados enviados.')
+            else
+                render(status: 400, text: 'Ocorreu um erro.')
+        }
+    }
 
     private callAction(request, params, action) {
         if (!params.key) {
@@ -65,7 +75,7 @@ class HTTPServiceController {
         sucesso
     }
 
-	def get() {
+	private get() {
         def action = { httpclient, conf, url ->
             HttpGet httpget = new HttpGet(url)
             ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
@@ -88,7 +98,7 @@ class HTTPServiceController {
         callAction(request, params, action)
 	}
 
-	def post() {
+	private post() {
         params.remove('action')
         params.remove('controller')
 

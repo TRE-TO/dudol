@@ -7,7 +7,7 @@ class UrlMappings {
             }
         }
 
-        "/httpservice/$action?/$key/$opt**?"(controller: 'HTTPService')
+        "/httpservice/$key/$opt**?"(controller: 'HTTPService')
 
         "/"(view:"/index")
         "500"(view:'/error')

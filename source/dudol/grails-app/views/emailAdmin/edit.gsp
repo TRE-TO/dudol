@@ -22,12 +22,12 @@
 						</g:eachError>
 					</div>
 				</g:hasErrors>
-				<g:form url="[resource:emailInstance, action:'update']" method="PUT" class="form-horizontal" role="form">
+				<g:form controller="EmailAdmin" action="update" id="${emailInstance.id}" method="PUT" class="form-horizontal" role="form">
 					<g:hiddenField name="version" value="${emailInstance?.version}" />
 					<g:render template="form"/>
 					<div class="form-group">
 	        			<div class="col-sm-offset-2 col-sm-10">
-							<g:actionSubmit class="btn btn-default" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
+							<g:actionSubmit class="btn btn-primary" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
 						</div>
 					</div>
 				</g:form>

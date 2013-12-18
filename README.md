@@ -15,9 +15,9 @@ Para utilizar a Comunicação Ativa, primeiro é necessário cadastrar o Serviç
 1.  URL base: http://qualquer1.empresa.com/servicoX
 2.  Chave: s1
 3.  URL que seria utilizada pela aplicação cliente sem usar o Dudol: http://host1.empresa.com/servicoX/caminho/qualquer?par1=val1&par2=val2
-4.  URL a ser utilizada pela aplicação cliente com o Dudol: http://qualquer2.empresa.com/dudol/s1/caminho/qualquer?par1=val1&par2=val2
+4.  URL a ser utilizada pela aplicação cliente com o Dudol: http://qualquer2.empresa.com/dudol/httpservice/s1/caminho/qualquer?par1=val1&par2=val2
 
-Observe que a chave da linha 2 deve ser igual à chave da linha 4 (após o nome "dudol"). O trabalho do Dudol será trocar a chave pela URL base do serviço identificado por aquela chave.
+Observe que a chave da linha 2 deve ser igual à chave da linha 4 (após o nome "httpservice"). O trabalho do Dudol será trocar a chave pela URL base do serviço identificado por aquela chave.
 
 Deve-se atentar ao fato de que a URL base do Dudol (no exemplo, http://qualquer2.empresa.com/dudol) não deve mudar ao longo do tempo, daí a importância de ser bem escolhida, e consequentemente, desta forma é que se tem o benefício de usar o Dudol na Comunicação Ativa.
 

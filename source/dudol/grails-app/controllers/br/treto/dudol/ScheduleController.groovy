@@ -10,13 +10,31 @@ class ScheduleController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index(Integer max) {
+    def index(Integer max, String invertKey) {
+        invert(invertKey)
         params.max = Math.min(max ?: 10, 100)
-        respond Schedule.list(params), model:[scheduleInstanceCount: Schedule.count()]
+        def list = Schedule.list(params)
+        def statusList = []
+        for (def s in list) {
+            statusList.add(ScheduleRefManager.isRunning(s.key))
+        }
+        respond list, model:[scheduleInstanceCount: Schedule.count(), statuses: statusList]
     }
 
     def show(Schedule scheduleInstance) {
         respond scheduleInstance
+    }
+
+    def invert(String key) {
+        Schedule s = Schedule.findByKey(key)
+        if (s != null) {
+            if (ScheduleRefManager.isRunning(s)) {
+                ScheduleRefManager.cancel(key)
+            }
+            else {
+                ScheduleRefManager.start(s, 30)
+            }
+        }
     }
 
     def create() {
@@ -36,6 +54,8 @@ class ScheduleController {
         }
 
         scheduleInstance.save flush:true
+
+        ScheduleRefManager.start(scheduleInstance, 30)
 
         request.withFormat {
             form {
@@ -80,6 +100,8 @@ class ScheduleController {
             notFound()
             return
         }
+
+        ScheduleRefManager.cancel(scheduleInstance.key)
 
         scheduleInstance.delete flush:true
 

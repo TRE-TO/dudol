@@ -28,7 +28,10 @@
 						<g:sortableColumn property="key" title="${message(code: 'schedule.key.label', default: 'Key')}" />
 					
 						<g:sortableColumn property="rateInSeconds" title="${message(code: 'schedule.rateInSeconds.label', default: 'Rate In Seconds')}" />
+
+						<th>Running</th>
 					
+						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -40,6 +43,10 @@
 						<td>${fieldValue(bean: scheduleInstance, field: "key")}</td>
 					
 						<td>${fieldValue(bean: scheduleInstance, field: "rateInSeconds")}</td>
+
+						<td>${statuses[i]}</td>
+
+						<td></td>
 					
 					</tr>
 				</g:each>

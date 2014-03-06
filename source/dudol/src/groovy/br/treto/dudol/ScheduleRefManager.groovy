@@ -11,7 +11,7 @@ class ScheduleRefManager {
 	public static start(Schedule schedule, Long startIn = 10) {
 		ScheduledFuture scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
 			public void run() {
-				Runtime.getRuntime().exec(schedule.executable)
+				Runtime.getRuntime().exec(schedule.executable.split())
     		}
 		},
 		startIn,
@@ -26,5 +26,10 @@ class ScheduleRefManager {
 	public static cancel(String key) {
 		refs.get(key).cancel(true)
 		refs.remove(key)
+		println "[DUDOL] Tarefa '${key}' interrompida."
+	}
+
+	public static boolean isRunning(String key) {
+		return refs.containsKey(key)
 	}
 }

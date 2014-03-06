@@ -11,7 +11,6 @@ class ScheduleController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max, String invertKey) {
-        invert(invertKey)
         params.max = Math.min(max ?: 10, 100)
         def list = Schedule.list(params)
         def statusList = []
@@ -28,11 +27,13 @@ class ScheduleController {
     def invert(String key) {
         Schedule s = Schedule.findByKey(key)
         if (s != null) {
-            if (ScheduleRefManager.isRunning(s)) {
+            if (ScheduleRefManager.isRunning(s.key)) {
                 ScheduleRefManager.cancel(key)
+                render 'false'
             }
             else {
-                ScheduleRefManager.start(s, 30)
+                ScheduleRefManager.start(s, 1)
+                render 'true'
             }
         }
     }

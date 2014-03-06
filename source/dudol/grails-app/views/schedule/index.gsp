@@ -44,9 +44,14 @@
 					
 						<td>${fieldValue(bean: scheduleInstance, field: "rateInSeconds")}</td>
 
-						<td>${statuses[i]}</td>
+						<td id="status${i}">${statuses[i]}</td>
 
-						<td></td>
+						<td>
+							<g:formRemote name="invert" on404="alert('Erro!')" update="status${i}" url="[controller: 'schedule', action:'invert', params: scheduleInstance.key]">
+								<input type="hidden" name="key" value="${fieldValue(bean: scheduleInstance, field: 'key')}"/>
+								<input type="submit" value="Start/Stop"/>
+							</g:formRemote>
+						</td>
 					
 					</tr>
 				</g:each>

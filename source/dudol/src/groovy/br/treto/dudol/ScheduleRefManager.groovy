@@ -8,7 +8,7 @@ class ScheduleRefManager {
 
 	private static ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(5)
 
-	public static start(Schedule schedule, Long startIn = 10) {
+	public static start(Schedule schedule, Long startIn = 2) {
 		ScheduledFuture scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
 			public void run() {
 				Runtime.getRuntime().exec(schedule.executable.split())
@@ -18,7 +18,7 @@ class ScheduleRefManager {
 		new Long(schedule.rateInSeconds),
 		TimeUnit.SECONDS)
 
-		println "[DUDOL] Agendando tarefa '${schedule.key}' para início em ${startIn} segundos....."
+		println "[DUDOL] Agendando tarefa '${schedule.key}' para início em ${startIn} segundos..."
 
 		refs.put(schedule.key, scheduledFuture)
 	}

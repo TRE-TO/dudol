@@ -7,10 +7,15 @@
 	</head>
 	<body>
 		<div class="nav" role="navigation">
-			<p><g:link class="list" action="index"><span class="glyphicon glyphicon-list"></span>&nbsp;Ver todos</g:link></p>
+			<p>
+				<g:link class="list" action="index">
+				<span class="glyphicon glyphicon-list"></span>
+				&nbsp;<g:message code="default.list.label" default="List all" />
+			</g:link>
+		</p>
 		</div>
 		<div class="page-header">
-    		<h1>Serviço HTTP <small>Novo cadastro</small></h1>
+    		<h1><g:message code="top.httpservices" default="HTTP Service" /> <small><g:message code="subtitle.new" default="New Entry" /></small></h1>
 		</div>
 		
 		<div id="create-HTTPService" class="panel panel-default" role="main">

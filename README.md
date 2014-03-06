@@ -55,23 +55,23 @@ As configurações de emails requerem apenas cinco valores, como mostra a figura
 
 ## Instalação e Execução
 
-### Executando a Camada Web
-
-*    **Instalar o Grails:**
+### Instalar o Grails
     
-    Primeiramente, deve-se verificar a versão do Grails usada no arquivo [application.properties](/source/dudol/application.properties). (Esta versão não foi colocada aqui explicitamente pois ela pode mudar em futuros commits, gerando o risco desta documentação ficar desatualizada.)
+Primeiramente, deve-se verificar a versão do Grails usada no arquivo [application.properties](/source/dudol/application.properties). (Esta versão não foi colocada aqui explicitamente pois ela pode mudar em futuros commits, gerando o risco desta documentação ficar desatualizada.)
      
-    Para instalar o Grails, uma opção prática é utilizar o [GVM](http://gvmtool.net). Com o GVM instalado, basta executar:
+Para instalar o Grails, uma opção prática é utilizar o [GVM](http://gvmtool.net). Com o GVM instalado, basta executar:
     > gvm install grails \<versão no application.properties\>
 
-*    **Alterar as configurações de acesso a banco de dados:**
+### Alterar as configurações de acesso a banco de dados
 
-    Alterar o arquivo [DataSource.groovy](/source/dudol/grails-app/conf/DataSource.groovy) para que ele aponte para o banco de dados desejado. Instruções de como configurar o banco de dados podem ser encontradas [aqui](http://grails.org/doc/latest/guide/conf.html#dataSource).
+Alterar o arquivo [DataSource.groovy](/source/dudol/grails-app/conf/DataSource.groovy) para que ele aponte para o banco de dados desejado. Instruções de como configurar o banco de dados podem ser encontradas [aqui](http://grails.org/doc/latest/guide/conf.html#dataSource).
     
-    Se for utilizado um banco de dados diferente do H2 (padrão), também será necessário adicionar o respectivo driver JDBC à aplicação. Isto pode ser feito adicionando-se a respectiva dependência na cláusula *dependencies* no arquivo [BuildConfig.groovy](/source/dudol/grails-app/conf/BuildConfig.groovy). Já existe um exemplo comentado para o caso do driver JDBC para o MySQL. A definição destas dependêncies segue as mesmas regras de arquivos pom.xml do Maven, com a diferença de que o groupId, artifactId e versão são separadas por :.
+Se for utilizado um banco de dados diferente do H2 (padrão), também será necessário adicionar o respectivo driver JDBC à aplicação. Isto pode ser feito adicionando-se a respectiva dependência na cláusula *dependencies* no arquivo [BuildConfig.groovy](/source/dudol/grails-app/conf/BuildConfig.groovy). Já existe um exemplo comentado para o caso do driver JDBC para o MySQL. A definição destas dependêncies segue as mesmas regras de arquivos pom.xml do Maven, com a diferença de que o groupId, artifactId e versão são separadas por :.
     
-*    **Executar a aplicação Grails**
+### Executar a aplicação Grails
     
-    Para executar em modo de desenvolvimento, entre no diretório *dudol/source/dudol* e execute o comando **grails run-app**. Pronto!
+Para executar em modo de desenvolvimento, entre no diretório *dudol/source/dudol* e execute o comando **grails run-app**. Pronto!
 
-    Para funcionar em produção você irá preferir executar o comanto **grails war**. Será gerado um arquivo .war, no diretório *dudol/source/dudol/target*.
+Para funcionar em produção você irá preferir executar o comanto **grails war**. Será gerado um arquivo .war, no diretório *dudol/source/dudol/target*.
+
+> O Dudol utiliza autenticação HTTP Basic para o acesso às áreas administrativas. Neste caso, em desenvolvimento, será necessário comentar as linhas contidas pela segunda tag *\<security-constraint\>* e pela tag *\<login-config\>*. Já em produção, será necessário criar um usuário e atribuir a ele o perfil (*role*) **dudol**. No Tomcat, isto é feito no arquivo $CATALINA_HOME/conf/tomcat-users.xml.

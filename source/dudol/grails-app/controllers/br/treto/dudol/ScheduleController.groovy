@@ -32,7 +32,7 @@ class ScheduleController {
                 render 'false'
             }
             else {
-                ScheduleRefManager.start(s, 1)
+                ScheduleRefManager.start(s)
                 render 'true'
             }
         }

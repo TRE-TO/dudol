@@ -47,13 +47,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Dudol</a>
+          <a class="navbar-brand" href="<g:createLink uri='/'/>">Dudol</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li <g:if test="${controllerName == 'HTTPServiceAdmin'}">class="active"</g:if>><a href="<g:createLink controller="HTTPServiceAdmin"/>"><g:message code="top.httpservice"/></a></li>
+            <li <g:if test="${controllerName == 'HTTPServiceAdmin'}">class="active"</g:if>><a href="<g:createLink controller="HTTPServiceAdmin"/>"><g:message code="top.httpservices"/></a></li>
             <li <g:if test="${controllerName == 'emailAdmin'}">class="active"</g:if>><a href="<g:createLink controller="EmailAdmin"/>">Emails</a></li>
-            <li <g:if test="${controllerName == 'schedule'}">class="active"</g:if>><a href="<g:createLink controller="Schedule"/>"><g:message code="top.schedule"/></a></li>
+            <li <g:if test="${controllerName == 'schedule'}">class="active"</g:if>><a href="<g:createLink controller="Schedule"/>"><g:message code="top.schedules"/></a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

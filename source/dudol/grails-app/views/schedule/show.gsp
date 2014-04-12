@@ -12,7 +12,7 @@
 			<p><g:link class="list" action="index"><span class="glyphicon glyphicon-list"></span>&nbsp;<g:message code="default.list.label" args="[entityName]" /></g:link></p>
 		</div>
 		<div class="page-header">
-			<h1>Agendamento <small>Detalhes</small></h1>
+			<h1><g:message code="top.schedules" default="HTTP Service" /> <small><g:message code="subtitle.details" default="Details" /></small></h1>
 		</div>
 		<g:if test="${flash.message}">
 			<div class="alert alert-success" role="status">${flash.message}</div>

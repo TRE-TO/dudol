@@ -9,10 +9,15 @@
 	</head>
 	<body>
 		<div class="nav" role="navigation">
-			<p><g:link class="create" controller="HTTPServiceAdmin" action="create"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Novo Serviço HTTP</g:link></p>
+			<p>
+				<g:link class="create" controller="HTTPServiceAdmin" action="create">
+					<span class="glyphicon glyphicon-plus-sign"></span>
+					&nbsp;<g:message code="default.add.label" default="Add new" />
+				</g:link>
+			</p>
 		</div>
 		<div class="page-header">
-			<h1>Serviços HTTP <small>Listagem</small></h1>
+			<h1><g:message code="top.httpservices" default="HTTP Service" /> <small><g:message code="subtitle.listing" default="Listing" /></small></h1>
 		</div>
 
 		<div id="list-HTTPService" class="content scaffold-list" role="main">
@@ -23,9 +28,9 @@
 			<thead>
 					<tr>
 					
-						<g:sortableColumn property="baseUrl" title="${message(code: 'HTTPService.baseUrl.label', default: 'Base Url')}" />
-					
 						<g:sortableColumn property="key" title="${message(code: 'HTTPService.key.label', default: 'Key')}" />
+					
+						<g:sortableColumn property="baseUrl" title="${message(code: 'HTTPService.baseUrl.label', default: 'Base Url')}" />
 					
 					</tr>
 				</thead>
@@ -33,9 +38,9 @@
 				<g:each in="${HTTPServiceInstanceList}" status="i" var="HTTPServiceInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${HTTPServiceInstance.id}">${fieldValue(bean: HTTPServiceInstance, field: "baseUrl")}</g:link></td>
+						<td><g:link action="show" id="${HTTPServiceInstance.id}">${fieldValue(bean: HTTPServiceInstance, field: "key")}</g:link></td>
 					
-						<td>${fieldValue(bean: HTTPServiceInstance, field: "key")}</td>
+						<td>${fieldValue(bean: HTTPServiceInstance, field: "baseUrl")}</td>
 					
 					</tr>
 				</g:each>

@@ -63,6 +63,7 @@ grails.project.dependency.resolution = {
         // plugins for the compile step
         compile ":scaffolding:2.0.1"
         compile ':cache:1.1.1'
+        compile ":codenarc:0.20"
 
         // plugins needed at runtime but not for compilation
         runtime ":hibernate:3.6.10.3" // or ":hibernate4:4.1.11.2"
@@ -75,3 +76,11 @@ grails.project.dependency.resolution = {
         //runtime ":yui-minify-resources:0.1.5"
     }
 }
+
+codenarc.reports = {
+    MyXmlReport('xml') {
+        outputFile = 'target/CodeNarcReport.xml'
+        title = 'Sample Report'
+    }
+}
+

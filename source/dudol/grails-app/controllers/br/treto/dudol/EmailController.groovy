@@ -49,11 +49,13 @@ class EmailController {
 		ccList.each{ if (it) email.addCc(it) }
 		bccList.each{ if (it) email.addBcc(it) }
 
-		try {
+        try {
 			email.send()
 		}
 		catch (EmailException ex) {
 			render(status: 400, text: 'Ocorreu um problema ao enviar o email: ' + ex.getMessage())
+            ex.printStackTrace()
+            return
 		}
 
 		render(status: 200, text: 'Email enviado.')

@@ -35,6 +35,10 @@ grails.project.dependency.resolution = {
     repositories {
         inherits true // Whether to inherit repository definitions from plugins
 
+        mavenRepo "http://repodes.tre-to.gov.br:8080/nexus/content/repositories/treto-libs/"
+        mavenRepo "http://repodes.tre-to.gov.br:8080/nexus/content/repositories/central/"
+        mavenRepo "http://repodes.tre-to.gov.br:8080/nexus/content/repositories/grails-plugins/"
+        
         grailsPlugins()
         grailsHome()
         mavenLocal()
@@ -54,6 +58,7 @@ grails.project.dependency.resolution = {
         compile 'org.apache.httpcomponents:httpmime:4.3'
         compile 'org.apache.httpcomponents:fluent-hc:4.3'
         runtime 'org.apache.commons:commons-email:1.3.2'
+        compile "ojdbc:ojdbc:14"
     }
 
     plugins {
@@ -63,7 +68,6 @@ grails.project.dependency.resolution = {
         // plugins for the compile step
         compile ":scaffolding:2.0.1"
         compile ':cache:1.1.1'
-        compile ":codenarc:0.20"
 
         // plugins needed at runtime but not for compilation
         runtime ":hibernate:3.6.10.3" // or ":hibernate4:4.1.11.2"
@@ -76,11 +80,3 @@ grails.project.dependency.resolution = {
         //runtime ":yui-minify-resources:0.1.5"
     }
 }
-
-codenarc.reports = {
-    MyXmlReport('xml') {
-        outputFile = 'target/CodeNarcReport.xml'
-        title = 'Sample Report'
-    }
-}
-

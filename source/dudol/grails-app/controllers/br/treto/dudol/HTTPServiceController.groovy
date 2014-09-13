@@ -1,30 +1,21 @@
 package br.treto.dudol
 
-import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
-
-import java.io.ByteArrayOutputStream
-import java.io.IOException
-import java.io.ObjectOutputStream
-import java.io.IOException
-
-import java.util.Map.Entry
-
 import org.apache.http.HttpEntity
 import org.apache.http.HttpResponse
+import org.apache.http.NameValuePair
 import org.apache.http.client.ClientProtocolException
 import org.apache.http.client.ResponseHandler
 import org.apache.http.client.entity.UrlEncodedFormEntity
-import org.apache.http.client.methods.HttpPost
-import org.apache.http.client.methods.HttpGet
 import org.apache.http.client.methods.CloseableHttpResponse
+import org.apache.http.client.methods.HttpGet
+import org.apache.http.client.methods.HttpPost
 import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.impl.client.HttpClients
-import org.apache.http.util.EntityUtils
-
-import org.apache.http.NameValuePair
 import org.apache.http.message.BasicNameValuePair
-
+import org.apache.http.util.EntityUtils
+import java.util.Map.Entry
+import static grails.async.Promises.*
 
 @Transactional(readOnly = true)
 class HTTPServiceController {
@@ -32,12 +23,14 @@ class HTTPServiceController {
 	static allowedMethods = [processRequest: ['GET', 'POST']]
 
     def processRequest() {
-        if (request.method == 'GET') get()
-        else {
-            if (post())
-                render(status: 200, text: 'Dados enviados.')
-            else
-                render(status: 400, text: 'Ocorreu um erro.')
+        task {
+            if (request.method == 'GET') get()
+            else {
+                if (post())
+                    render(status: 200, text: 'Dados enviados.')
+                else
+                    render(status: 400, text: 'Ocorreu um erro.')
+            }
         }
     }
 

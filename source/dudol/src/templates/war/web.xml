@@ -104,7 +104,7 @@
         </user-data-constraint>
     </security-constraint>
 
-<!--     <security-constraint>
+    <security-constraint>
         <web-resource-collection>
             <web-resource-name>Wildcard means whole app requires authentication</web-resource-name>
             <url-pattern>/emailAdmin/*</url-pattern>
@@ -126,5 +126,5 @@
     <login-config>
         <auth-method>BASIC</auth-method>
     </login-config>
- -->
+
 </web-app>

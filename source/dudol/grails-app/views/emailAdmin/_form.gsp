@@ -17,7 +17,7 @@
 		<span class="required-indicator">*</span>
 	</label>
 	<div class="col-sm-10">
-		<g:field name="port" type="number" class="form-control" value="${emailInstance.port}" required=""/>
+		<g:field name="port" type="number" class="form-control" value="${emailInstance?.port}" required=""/>
 	</div>
 </div>
 

@@ -9,7 +9,8 @@ class EmailAdminController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index() {
-        render (view: "edit", model: [emailInstance: Email.get(1)])
+        def email = Email.list()[0] ?: new Email(id: 1)
+        render (view: "edit", model: [emailInstance: email])
     }
 
     @Transactional

@@ -84,7 +84,7 @@ dependencies {
     compile 'org.apache.httpcomponents:fluent-hc:4.3'
     compile 'org.apache.commons:commons-email:1.3.2'
     runtime "org.grails.plugins:resources:1.2.1"
-    compile 'org.grails.plugins:spring-security-core:4.0.0.RC2'
+
 
 
 

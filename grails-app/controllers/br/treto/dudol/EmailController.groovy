@@ -1,13 +1,12 @@
 package br.treto.dudol
 
-import org.apache.commons.mail.DefaultAuthenticator
-import org.apache.commons.mail.EmailException
-import org.apache.commons.mail.HtmlEmail
-import org.apache.commons.mail.MultiPartEmail
-import org.apache.commons.mail.SimpleEmail
+
+import org.apache.commons.mail.*
 import javax.mail.MessagingException
 import javax.mail.internet.AddressException
 import javax.mail.internet.InternetAddress
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 
 import static grails.async.Promises.task
 
@@ -16,14 +15,30 @@ class EmailController {
 	static allowedMethods = [enviar: "POST"]
 	
 	def enviar() {
-        task {
+       // task {
             String missing = validate(params).join(', ')
             if (missing) {
                 render(status: 400, text: "Os seguintes parâmetros são obrigatórios: $missing")
                 return
             }
+        def anexos =[]
+        request.getFiles("anexos[]").each {
+            // use closure parameter if you don't want to use "it"
+            //file -> println(file.originalFilename)
+            Date date = Calendar.getInstance().getTime();
+            DateFormat dateFormat = new SimpleDateFormat("yyyymmddhhmmss");
+            String strDate = dateFormat.format(date);
+            String nomeArquivo = "/tmp/"+strDate+""+it.originalFilename;
+            nomeArquivo = nomeArquivo.replace(" ","_");
+            it.transferTo(new File(nomeArquivo))
+//
+            anexos << nomeArquivo
 
-            def toList = [params.to].flatten()
+        }
+
+
+
+        def toList = [params.to].flatten()
             def ccList = [params.cc].flatten()
             def bccList = [params.bcc].flatten()
 
@@ -36,10 +51,21 @@ class EmailController {
                 return
             }
 
-            org.apache.commons.mail.Email email = mountEmail(toList, ccList, bccList)
+
 
             try {
-                sendEmail(email, false)
+
+                if(anexos.size() > 0 ){
+                    MultiPartEmail email =mountEmail(toList, ccList, bccList,anexos)
+                    sendEmail(email, false)
+                }
+
+                else{
+                    org.apache.commons.mail.Email email = mountEmail(toList, ccList, bccList)
+                    sendEmail(email, false)
+                }
+
+
                 log.info "Email enviado com sucesso. De ${params.from}, para ${params.to}."
             }
             catch (AddressException ex) {
@@ -60,8 +86,42 @@ class EmailController {
                 return
             }
             render(status: 200, text: 'Email enviado.')
-        }
+     //   }
 	}
+    private MultiPartEmail mountEmail(List<String> toList, List<String> ccList, List<String> bccList, List<String> anexos) {
+        MultiPartEmail email = new MultiPartEmail();
+        if (!params.html || params.html.equals(0)){
+            email.setMsg(params.message)
+        }
+        else{
+            email.addPart(params.message, "text/html; charset=UTF-8")
+        }
+
+
+        def conf = Email.get(1)
+
+        email.setHostName(conf.host)
+        email.setSmtpPort(conf.port)
+        email.setSSLOnConnect(conf.ssl)
+        email.setFrom(params.from, params.fromname)
+        email.setSubject(params.subject)
+        if (conf.username) {
+            email.setAuthenticator(new DefaultAuthenticator(conf.username, conf.password))
+        }
+        toList.each { email.addTo(it) }
+        ccList.each { if (it) email.addCc(it) }
+        bccList.each { if (it) email.addBcc(it) }
+
+        anexos.each{
+            EmailAttachment attachment = new EmailAttachment();
+            attachment.setPath(it);
+            attachment.setDisposition(EmailAttachment.ATTACHMENT);
+            email.attach(attachment)
+        }
+
+        email
+    }
+
 
     private org.apache.commons.mail.Email mountEmail(List<String> toList, List<String> ccList, List<String> bccList) {
         org.apache.commons.mail.Email email
@@ -84,6 +144,7 @@ class EmailController {
         toList.each { email.addTo(it) }
         ccList.each { if (it) email.addCc(it) }
         bccList.each { if (it) email.addBcc(it) }
+
         email
     }
 
@@ -123,5 +184,8 @@ class EmailController {
         else {
             email.send()
         }
+    }
+    private void sendEmail(MultiPartEmail email, Boolean alreadySent) {
+       email.send()
     }
 }

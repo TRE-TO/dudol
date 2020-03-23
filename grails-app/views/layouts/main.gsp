@@ -50,10 +50,19 @@
           <a class="navbar-brand" href="<g:createLink uri='/'/>">Dudol</a>
         </div>
         <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-             <li <g:if test="${controllerName == 'emailAdmin'}">class="active"</g:if>><a href="<g:createLink controller="EmailAdmin"/>">Emails</a></li>
-            <li <g:if test="${controllerName == 'schedule'}">class="active"</g:if>><a href="<g:createLink controller="Schedule"/>"><g:message code="top.schedules"/></a></li>
-          </ul>
+            <g:if test="${session.logado}">
+              <ul class="nav navbar-nav" >
+
+                 <li <g:if test="${controllerName == 'emailAdmin'}">class="active"</g:if>><a href="<g:createLink controller="EmailAdmin"/>">Emails</a></li>
+                <li <g:if test="${controllerName == 'schedule'}">class="active"</g:if>><a href="<g:createLink controller="Schedule"/>"><g:message code="top.schedules"/></a></li>
+
+
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li ><a href="/login/logout">Sair</a></li>
+
+              </ul>
+            </g:if>
         </div><!--/.nav-collapse -->
       </div>
     </div>

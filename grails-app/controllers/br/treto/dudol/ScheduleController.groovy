@@ -1,5 +1,6 @@
 package br.treto.dudol
 
+import grails.gorm.transactions.Transactional
 
 
 //import static org.springframework.http.HttpStatus.*
@@ -17,7 +18,8 @@ class ScheduleController {
         for (def s in list) {
             statusList.add(ScheduleRefManager.isRunning(s.key))
         }
-        respond list, model:[scheduleInstanceCount: Schedule.count(), statuses: statusList]
+        render view:'index', model:[scheduleInstanceList:list, scheduleInstanceCount: Schedule.count(), statuses: statusList]
+      //  respond list, model:[scheduleInstanceCount: Schedule.count(), statuses: statusList]
     }
 
     def show(Schedule scheduleInstance) {
@@ -29,20 +31,24 @@ class ScheduleController {
         if (s != null) {
             if (ScheduleRefManager.isRunning(s.key)) {
                 ScheduleRefManager.cancel(key)
-                render 'false'
+               // render 'false'
             }
             else {
                 ScheduleRefManager.start(s)
-                render 'true'
+               // render 'true'
             }
         }
+        redirect action:"index"
     }
 
     def create() {
-        respond new Schedule(params)
+
+        Schedule scheduleInstance = new Schedule(params)
+        render (view: "create", model:[scheduleInstance: scheduleInstance])
+        //respond new Schedule()
     }
 
-    //@Transactional
+    @Transactional
     def save(Schedule scheduleInstance) {
         if (scheduleInstance == null) {
             notFound()
@@ -71,7 +77,7 @@ class ScheduleController {
         respond scheduleInstance
     }
 
-    //@Transactional
+    @Transactional
     def update(Schedule scheduleInstance) {
         if (scheduleInstance == null) {
             notFound()
@@ -94,7 +100,7 @@ class ScheduleController {
         }
     }
 
-   // @Transactional
+    @Transactional
     def delete(Schedule scheduleInstance) {
 
         if (scheduleInstance == null) {

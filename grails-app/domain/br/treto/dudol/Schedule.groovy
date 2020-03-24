@@ -6,6 +6,9 @@ class Schedule {
 	String executable
 	Integer rateInSeconds
 
+	static mapping = {
+		rateInSeconds column: "rate_in_seconds"
+	}
     static constraints = {
     }
 }

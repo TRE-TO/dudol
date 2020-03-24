@@ -47,10 +47,11 @@
 						<td id="status${i}">${statuses[i]}</td>
 
 						<td>
-							<g:formRemote name="invert" on404="alert('Erro!')" update="status${i}" url="[controller: 'schedule', action:'invert', params: scheduleInstance.key]">
+							<g:form name="invert" on404="alert('Erro!')" update="status${i}" url="[controller: 'schedule', action:'invert', params: scheduleInstance.key]">
 								<input type="hidden" name="key" value="${fieldValue(bean: scheduleInstance, field: 'key')}"/>
 								<input type="submit" value="<g:message code="default.startstop" default="Start/Stop" />"/>
-							</g:formRemote>
+
+							</g:form>
 						</td>
 					
 					</tr>

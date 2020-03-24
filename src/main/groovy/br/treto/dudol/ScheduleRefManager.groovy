@@ -11,14 +11,20 @@ class ScheduleRefManager {
 	public static start(Schedule schedule, Long startIn = 2) {
 		ScheduledFuture scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
 			public void run() {
+
+				println "[DUDOL] rodando o comando: "+schedule.executable
 				Runtime.getRuntime().exec(schedule.executable.split())
-    		}
+
+
+			}
 		},
 		startIn,
 		new Long(schedule.rateInSeconds),
 		TimeUnit.SECONDS)
 
+	
 		println "[DUDOL] Agendando tarefa '${schedule.key}' para início em ${startIn} segundos..."
+
 
 		refs.put(schedule.key, scheduledFuture)
 	}

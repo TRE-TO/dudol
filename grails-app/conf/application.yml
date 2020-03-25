@@ -1,7 +1,5 @@
 ---
-server:
-    servlet:
-        context-path: /dudol
+
 grails:
     profile: web
     codegen:

@@ -6,6 +6,7 @@ class MyInterceptor {
     public MyInterceptor(){
         matchAll().excludes(controller: 'login')
                   .excludes(controller: 'email')
+
     }
     boolean before() {
         if(session["logado"] && session["logado"] == true)

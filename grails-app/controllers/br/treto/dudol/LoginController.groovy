@@ -34,7 +34,7 @@ class LoginController {
             if(response.statusLine.statusCode.equals(200)) {
 
                 session["logado"] = true
-                redirect (uri:"/schedule")
+                redirect (uri:"/home")
 
             }
             else{

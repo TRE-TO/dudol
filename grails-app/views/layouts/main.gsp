@@ -59,7 +59,7 @@
 
               </ul>
               <ul class="nav navbar-nav navbar-right">
-                <li ><a href="/login/logout">Sair</a></li>
+                <li ><a href="login/logout">Sair</a></li>
 
               </ul>
             </g:if>

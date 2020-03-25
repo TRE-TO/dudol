@@ -1,7 +1,18 @@
 package br.treto.dudol
 
-import java.util.concurrent.*
+import org.apache.http.NameValuePair
+import org.apache.http.client.entity.UrlEncodedFormEntity
+import org.apache.http.client.methods.CloseableHttpResponse
+import org.apache.http.client.methods.HttpGet
+import org.apache.http.client.methods.HttpPost
 
+import org.apache.http.impl.client.CloseableHttpClient
+import org.apache.http.impl.client.HttpClients
+import org.apache.http.message.BasicNameValuePair
+import org.apache.http.util.EntityUtils
+
+import java.util.concurrent.*
+import groovy.json.JsonSlurper
 class ScheduleRefManager {
 	
 	private static Map<String,ScheduledFuture> refs = new HashMap<String,ScheduledFuture>()
@@ -12,8 +23,70 @@ class ScheduleRefManager {
 		ScheduledFuture scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
 			public void run() {
 
+				def jsonSlurper = new JsonSlurper()
+				def obj = jsonSlurper.parseText(schedule.executable)
+
+				if(obj.method == 'POST'){
+
+					CloseableHttpClient client = HttpClients.createDefault();
+					HttpPost httpPost = new HttpPost(obj.url);
+
+
+					obj.headers.each{
+						def chave = it.keySet()[0]
+						def valor =it.get(it.keySet()[0])
+						httpPost.setHeader(chave.toString(),valor.toString())
+					}
+
+					List<NameValuePair> parametros = new ArrayList<NameValuePair>();
+
+					def hasBody = false
+					obj.params.each{
+						def chave = it.keySet()[0]
+						def valor =it.get(it.keySet()[0])
+
+						if(chave.equals("body")){
+							httpPost.setEntity(valor)
+							hasBody = true
+						}
+						parametros.add(new BasicNameValuePair(chave.toString(),valor.toString()))
+					}
+
+					if(!hasBody)
+						httpPost.setEntity(new UrlEncodedFormEntity(parametros));
+
+					CloseableHttpResponse response = client.execute(httpPost);
+					String retorno  = EntityUtils.toString(response.getEntity());
+					println "retorno"+retorno
+					if(response.statusLine.statusCode.equals(200)) {
+						println "[DUDOL] ok."+obj.url
+					}
+					client.close()
+				}
+				else if(obj.method == "GET"){
+					CloseableHttpClient client = HttpClients.createDefault();
+					HttpGet httpGet = new HttpGet(obj.url);
+
+
+					obj.headers.each{
+						def chave = it.keySet()[0]
+						def valor =it.get(it.keySet()[0])
+						httpGet.setHeader(chave.toString(),valor.toString())
+					}
+
+
+					CloseableHttpResponse response = client.execute(httpGet);
+					String retorno  = EntityUtils.toString(response.getEntity());
+					println "retorno"+retorno
+					if(response.statusLine.statusCode.equals(200)) {
+						println "[DUDOL] ok."+obj.url
+					}
+					client.close()
+
+				}
+
 				println "[DUDOL] rodando o comando: "+schedule.executable
-				Runtime.getRuntime().exec(schedule.executable.split())
+				//Runtime.getRuntime().exec(schedule.executable.split())
 
 
 			}

@@ -51,5 +51,9 @@ class LoginController {
         redirect(uri:"/login")
     }
 
+    def teste(){
+        render status:200, text: params.id
+    }
+
 
 }

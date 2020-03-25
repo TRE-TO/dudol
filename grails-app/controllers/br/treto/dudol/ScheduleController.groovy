@@ -1,6 +1,7 @@
 package br.treto.dudol
 
 import grails.gorm.transactions.Transactional
+import groovy.json.JsonSlurper
 
 
 //import static org.springframework.http.HttpStatus.*
@@ -22,8 +23,9 @@ class ScheduleController {
       //  respond list, model:[scheduleInstanceCount: Schedule.count(), statuses: statusList]
     }
 
-    def show(Schedule scheduleInstance) {
-        respond scheduleInstance
+    def show(Integer id) {
+        Schedule scheduleInstance = Schedule.findById(id)
+        render (view: "show", model:[scheduleInstance: scheduleInstance])
     }
 
     def invert(String key) {
@@ -73,8 +75,9 @@ class ScheduleController {
         }
     }
 
-    def edit(Schedule scheduleInstance) {
-        respond scheduleInstance
+    def edit(Integer id) {
+        Schedule scheduleInstance = Schedule.findById(id)
+        render (view: "edit", model:[scheduleInstance: scheduleInstance])
     }
 
     @Transactional

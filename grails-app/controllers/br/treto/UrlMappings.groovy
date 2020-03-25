@@ -3,7 +3,7 @@ package br.treto
 class UrlMappings {
 
     static mappings = {
-        "/dudol/$controller/$action?/$id?(.$format)?"{
+        "/$controller/$action?/$id?(.$format)?"{
             constraints {
                 // apply constraints here
             }

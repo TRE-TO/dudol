@@ -13,7 +13,7 @@ class EmailAdminController {
         render (view: "edit", model: [emailInstance: email])
     }
 
- //   @Transactional
+    @Transactional
     def update(Email emailInstance) {
         if (emailInstance == null) {
             notFound()

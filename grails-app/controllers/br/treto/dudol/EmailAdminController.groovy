@@ -1,5 +1,7 @@
 package br.treto.dudol
 
+import grails.gorm.transactions.Transactional
+
 //import static org.springframework.http.HttpStatus.*
 //import grails.transaction.Transactional
 

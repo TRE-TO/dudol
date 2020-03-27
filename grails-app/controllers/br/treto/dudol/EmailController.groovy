@@ -13,7 +13,12 @@ import static grails.async.Promises.task
 class EmailController {
 
 	static allowedMethods = [enviar: "POST"]
-	
+
+    def envia(){
+        println "request"
+
+        render text: request instanceof org.springframework.web.multipart.support.StandardMultipartHttpServletRequest
+    }
 	def enviar() {
        // task {
             String missing = validate(params).join(', ')
@@ -22,6 +27,9 @@ class EmailController {
                 return
             }
         def anexos =[]
+
+
+        if (request instanceof org.springframework.web.multipart.support.StandardMultipartHttpServletRequest)
         request.getFiles("anexos[]").each {
             // use closure parameter if you don't want to use "it"
             //file -> println(file.originalFilename)

@@ -33,8 +33,19 @@ class LoginController {
 
             if(response.statusLine.statusCode.equals(200)) {
 
-                session["logado"] = true
-                redirect (uri:"/home")
+                JsonSlurper json = new JsonSlurper()
+                def obj =  json.parseText(retorno)
+                def isAdmin = false
+                obj.perfis.each{
+                    if(it.equals('ADMIN'))
+                        isAdmin = true
+                }
+                if(isAdmin){
+                    session["logado"] = true
+                    redirect (uri:"/home")
+                }
+                flash.message = "Usuário sem permissão"
+
 
             }
             else{

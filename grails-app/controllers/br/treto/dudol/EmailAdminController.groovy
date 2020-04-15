@@ -11,7 +11,7 @@ class EmailAdminController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index() {
-        def email = Email.list()[0] ?: new Email(id: 1)
+        def email = Email.list()[0] ?: new Email(id:1,host:"1.1.1.1",password:"xxx",port:465,ssl:"1",username:"aa@aa.com").save()
         render (view: "edit", model: [emailInstance: email])
     }
 

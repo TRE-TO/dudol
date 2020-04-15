@@ -1,4 +1,5 @@
 ---
+modoInseguro: true
 server:
     servlet:
         context-path: /dudol

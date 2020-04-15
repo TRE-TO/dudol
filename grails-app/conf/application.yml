@@ -117,11 +117,10 @@ dataSource:
 environments:
     development:
         dataSource:
-            driverClassName: oracle.jdbc.driver.OracleDriver
-            dialect: org.hibernate.dialect.Oracle10gDialect
-            username: admdudol
-            password: ADMDUDOL2013
-            url: jdbc:oracle:thin:@10.27.1.1:1521:ADM
+            driverClassName: org.h2.Driver
+            dbCreate: update
+            url: jdbc:h2:file:~/Downloads/dudol;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+
 
     test:
         dataSource:

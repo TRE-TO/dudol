@@ -119,7 +119,7 @@ environments:
         dataSource:
             driverClassName: org.h2.Driver
             dbCreate: update
-            url: jdbc:h2:file:~/Downloads/dudol;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+            url: jdbc:h2:file:/tmp/dudol;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
 
 
     test:

@@ -14,7 +14,7 @@ class LoginController {
 
     def index() {
 
-        if(grailsApplication.config.modoInseguro == true){
+        if(grailsApplication.config.autenticarAdmin == false){
             session["logado"] = true
             redirect (uri:"/home")
         }

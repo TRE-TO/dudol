@@ -7,6 +7,8 @@ class Email {
 	String username
 	String password
 	Boolean ssl
+	Integer ordem
+	Integer qtdeMaxima
 
     static constraints = {
     	username nullable: true

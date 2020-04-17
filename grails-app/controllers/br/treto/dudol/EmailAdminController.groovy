@@ -11,8 +11,93 @@ class EmailAdminController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index() {
-        def email = Email.list()[0] ?: new Email(id:1,host:"1.1.1.1",password:"xxx",port:465,ssl:"1",username:"aa@aa.com").save()
-        render (view: "edit", model: [emailInstance: email])
+        def emails = Email.findAll([sort:"ordem"]);
+        render (view: "index", model: [lista: emails])
+    }
+    def edit(Integer id){
+
+        def email = Email.get(id)
+        if(request.method == 'GET'){
+
+            render (view:'edit', model:['emailInstance':email])
+        }
+    }
+    @Transactional
+    def create(){
+
+        if(request.method == 'GET'){
+            def email= new Email()
+            render (view:'create', model:['emailInstance':email])
+        }
+        else{
+            def e = Email.findAll([sort:"ordem", order:"desc", limit:1]);
+            Integer ordem=1;
+            if(e.size() >0 && e[0] !=null)
+                ordem = e[0].ordem+1;
+            Email email = new Email()
+            email.host = params.host
+            email.port = params.port.toInteger()
+            email.username = params.username
+            email.password = params.password
+            email.ordem = ordem
+            email.qtdeMaxima = params.qtdeMaxima.toInteger()
+            email.ssl = params.ssl ? true : false
+
+            if (email.hasErrors()) {
+                respond emailInstance.errors, view:'create'
+                return
+            }
+            email.save flush:true
+            request.withFormat {
+                form {
+                    flash.message = "Email adicionado"
+                    redirect action: "index", method: "GET"
+                }
+                '*'{ respond emailInstance, [status: OK] }
+            }
+
+        }
+
+    }
+    @Transactional
+    def excluir(Integer id){
+        def email = Email.get(id)
+        email.delete(flush:true)
+        flash.message = "Dados excluídos"
+        redirect action: "index", method: "GET"
+
+    }
+    @Transactional
+    def up(Integer id){
+        def email = Email.get(id)
+        def obj = Email.find("from Email as e where e.ordem < :ord order by  e.ordem desc",[ord:email.ordem])
+        if(obj!=null && obj.instanceOf(Email)){
+            Integer ord = email.ordem
+            email.ordem = obj.ordem
+            obj.ordem = ord
+            email.save flush:true
+            obj.save flush:true
+        }
+
+        redirect action: "index", method: "GET"
+
+    }
+    @Transactional
+    def down(Integer id){
+        def email = Email.get(id)
+
+        def obj = Email.find("from Email as e where e.ordem > :ord order by  e.ordem desc",[ord:email.ordem])
+        if(obj!=null && obj.instanceOf(Email)){
+            Integer ord = email.ordem
+            email.ordem = obj.ordem
+            obj.ordem = ord
+            email.save flush:true
+            obj.save flush:true
+        }
+
+
+        redirect action: "index", method: "GET"
+
     }
 
     @Transactional

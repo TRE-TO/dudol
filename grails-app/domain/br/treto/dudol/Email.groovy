@@ -2,6 +2,7 @@ package br.treto.dudol
 
 class Email {
 
+
 	String host
 	Integer port
 	String username
@@ -14,4 +15,5 @@ class Email {
     	username nullable: true
     	password nullable: true
     }
+
 }

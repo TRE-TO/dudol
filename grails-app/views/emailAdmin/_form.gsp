@@ -43,6 +43,16 @@
 	</div>
 </div>
 
+<div class="form-group fieldcontain ${hasErrors(bean: emailInstance, field: 'qtdeMaxima', 'error')} required">
+	<label for="port" class="col-sm-2 control-label">
+		<g:message code="email.qtdeMaxima.label" default="Qtde Máxima" />
+		<span class="required-indicator">*</span>
+	</label>
+	<div class="col-sm-10">
+		<g:field name="qtdeMaxima" type="number" class="form-control" value="${emailInstance?.qtdeMaxima}" required=""/>
+	</div>
+</div>
+
 <div class="form-group fieldcontain ${hasErrors(bean: emailInstance, field: 'ssl', 'error')} ">
 	<label for="ssl" class="col-sm-2 control-label">SSL</label>
 	<div class="col-sm-10">

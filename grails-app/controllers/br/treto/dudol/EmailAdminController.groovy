@@ -1,6 +1,10 @@
 package br.treto.dudol
 
 import grails.gorm.transactions.Transactional
+import org.hibernate.criterion.Restrictions
+import org.hibernate.sql.JoinType
+
+import java.text.SimpleDateFormat
 
 //import static org.springframework.http.HttpStatus.*
 //import grails.transaction.Transactional
@@ -11,7 +15,18 @@ class EmailAdminController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index() {
-        def emails = Email.findAll([sort:"ordem"]);
+
+        String dia = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+        def now = new SimpleDateFormat("dd/MM/yyyy").parse(dia);
+
+        def emails =  Email.createCriteria().list{
+            createAlias('envios', 'e', JoinType.LEFT_OUTER_JOIN, Restrictions. eq('e.data',now))
+
+            order('ordem','asc')
+
+        }
+      //  println "emails---:"+emails
+       // def emails = Email.findAll([sort:"ordem"]);
         render (view: "index", model: [lista: emails])
     }
     def edit(Integer id){

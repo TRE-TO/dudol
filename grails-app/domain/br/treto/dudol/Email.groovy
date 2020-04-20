@@ -14,6 +14,9 @@ class Email {
     static constraints = {
     	username nullable: true
     	password nullable: true
+
     }
+
+	static hasMany = [envios: Envio]
 
 }

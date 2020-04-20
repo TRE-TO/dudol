@@ -29,6 +29,7 @@
 						<th>Porta</th>
 						<th>SSL</th>
 						<th>Qtde Máxima/dia</th>
+						<th>Util. hoje</th>
 						<th>Ação</th>
 					
 
@@ -57,6 +58,8 @@
 						<td>${fieldValue(bean: obj, field: "ssl")}</td>
 
 						<td>${fieldValue(bean: obj, field: "qtdeMaxima")}</td>
+
+						<td>${obj.envios[0]?.quantidade}</td>
 
 						<td align='center'>
 

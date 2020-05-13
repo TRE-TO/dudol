@@ -1,23 +1,22 @@
 package br.treto.dudol
 
-
 class MyInterceptor {
 
-    public MyInterceptor(){
+    public MyInterceptor() {
         matchAll().excludes(controller: 'login')
                   .excludes(controller: 'email')
 
     }
+    
     boolean before() {
-        if(session["logado"] && session["logado"] == true)
+        if (session["logado"] && session["logado"] == true) {
             return true
-        else{
+        }
+        else {
             session.invalidate()
             redirect(uri:"/login")
             return  false
         }
-
-
     }
 
     boolean after() { true }

@@ -14,61 +14,56 @@ class LoginController {
 
     def index() {
 
-        if(grailsApplication.config.autenticarAdmin == false){
+        if (grailsApplication.config.autenticarAdmin == false) {
             session["logado"] = true
             redirect (uri:"/home")
         }
 
-        if(request.method == 'POST'){
+        if (request.method == 'POST') {
             String login = params.login
-
             String senha  = params.senha
-            CloseableHttpClient client = HttpClients.createDefault();
-            HttpPost httpPost = new HttpPost("https://autorizador.tre-to.jus.br/v2/autenticar/");
 
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("login",login));
-            params.add(new BasicNameValuePair("senha", senha.bytes.encodeBase64().toString()));
-            params.add(new BasicNameValuePair("sistema", "DUDOL"));
-            httpPost.setEntity(new UrlEncodedFormEntity(params));
+            CloseableHttpClient client = HttpClients.createDefault()
+            HttpPost httpPost = new HttpPost(grailsApplication.config.autorizador.url.autenticar)
 
-            CloseableHttpResponse response = client.execute(httpPost);
-            String retorno  = EntityUtils.toString(response.getEntity());
+            List<NameValuePair> params = new ArrayList<NameValuePair>()
+            params.add(new BasicNameValuePair("login",login))
+            params.add(new BasicNameValuePair("senha", senha.bytes.encodeBase64().toString()))
+            params.add(new BasicNameValuePair("sistema", grailsApplication.config.autorizador.sistema))
+            httpPost.setEntity(new UrlEncodedFormEntity(params))
 
-            if(response.statusLine.statusCode.equals(200)) {
+            CloseableHttpResponse response = client.execute(httpPost)
+            String retorno = EntityUtils.toString(response.getEntity())
+
+            if (response.statusLine.statusCode.equals(200)) {
 
                 JsonSlurper json = new JsonSlurper()
                 def obj =  json.parseText(retorno)
                 def isAdmin = false
                 obj.perfis.each{
-                    if(it.equals('ADMIN'))
+                    if (it.equals('ADMIN'))
                         isAdmin = true
                 }
-                if(isAdmin){
+                if (isAdmin) {
                     session["logado"] = true
                     redirect (uri:"/home")
                 }
                 flash.message = "Usuário sem permissão"
-
-
             }
-            else{
+            else {
                 flash.message = "Login e/ou senha inválidos"
             }
         }
 
         render (view: "index")
-
     }
 
-    def logout(){
+    def logout() {
         session.invalidate()
         redirect(uri:"/login")
     }
 
-    def teste(){
+    def teste() {
         render status:200, text: params.id
     }
-
-
 }

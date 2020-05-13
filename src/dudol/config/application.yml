@@ -1,4 +1,6 @@
 # Este arquivo também define propriedades, mas é gerenciado pelo Spring Boot.
 # Referência: https://docs.grails.org/latest/guide/conf.html
 
-autenticarAdmin: true
+autenticarAdmin: false
+autorizador.url.autenticar: https://autorizador.tre-to.jus.br/v2/autenticar/
+autorizador.sistema: DUDOL

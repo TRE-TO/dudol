@@ -24,15 +24,12 @@ class EmailController {
 	def enviar() {
        // task {
 
-
-
             String missing = validate(params).join(', ')
             if (missing) {
                 render(status: 400, text: "Os seguintes parâmetros são obrigatórios: $missing")
                 return
             }
         def anexos =[]
-
 
         if (request instanceof org.springframework.web.multipart.support.StandardMultipartHttpServletRequest)
         request.getFiles("anexos[]").each {
@@ -49,8 +46,6 @@ class EmailController {
 
         }
 
-
-
             def toList = params.to ? [params.to].flatten() : []
             def ccList =params.cc ? [params.cc].flatten() : []
 
@@ -66,19 +61,14 @@ class EmailController {
 
             def email = null
             try {
-
-
-                if(anexos.size() > 0 ){
+                if (anexos.size() > 0 ) {
                      email =mountEmail(toList, ccList, bccList,anexos)
                     sendEmail(email, false)
                 }
-
                 else{
                     email = mountEmail(toList, ccList, bccList)
                     sendEmail(email, false)
                 }
-
-
 
                 log.info "Email enviado com sucesso. De ${email.getFromAddress()}, para ${params.to}."
             }
@@ -109,23 +99,19 @@ class EmailController {
      //   }
 	}
     private MultiPartEmail mountEmail(List<String> toList, List<String> ccList, List<String> bccList, List<String> anexos) {
-        MultiPartEmail email = new MultiPartEmail();
-        if (!params.html || params.html.equals(0)){
+        MultiPartEmail email = new MultiPartEmail()
+        if (!params.html || params.html.equals(0)) {
             email.setMsg(params.message)
         }
         else{
             email.addPart(params.message, "text/html; charset=UTF-8")
         }
 
-
-
-        def conf = this.getConfig(toList,ccList,bccList);
-        if(conf == null){
+        def conf = this.getConfig(toList, ccList, bccList)
+        if (conf == null) {
             render(status: 400, text: "Contas remetentes com quotas esgotadas e/ou inexistentes")
             return
         }
-
-
 
         email.setHostName(conf.host)
         email.setSmtpPort(conf.port)
@@ -149,11 +135,8 @@ class EmailController {
         email
     }
     @Transactional
-    private Email getConfig(List<String> toList, List<String> ccList, List<String> bccList){
-
-
+    private Email getConfig(List<String> toList, List<String> ccList, List<String> bccList) {
         def contador = toList.size() + ccList.size() + bccList.size()
-
 
         String dia = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
         def now = new SimpleDateFormat("dd/MM/yyyy").parse(dia);
@@ -162,7 +145,7 @@ class EmailController {
             eq('data',now)
         }
 
-        if(envios.size() == 0){
+        if (envios.size() == 0) {
             def emails = Email.createCriteria().list{
 
                 order("ordem","asc")
@@ -176,40 +159,33 @@ class EmailController {
                 envio.save flush:true
 
             }
-
-
         }
         envios =  Envio.createCriteria().list{
             createAlias('email', 'email', JoinType.LEFT_OUTER_JOIN)
             eq('data',now)
             order('email.ordem','asc')
-
         }
-
 
         def emailConfig = null
         envios.any{
-            if(it.email.qtdeMaxima >= (it.quantidade + contador )){
+            if (it.email.qtdeMaxima >= (it.quantidade + contador )) {
 
 //                def envio = it
 //                envio.quantidade+=contador
 //                envio.save flush:true
 
                 emailConfig =it.email
-                return true;
-
+                return true
             }
-
-
         }
-        return emailConfig;
+        return emailConfig
         //System.exit(0)
     }
 
     private org.apache.commons.mail.Email mountEmail(List<String> toList, List<String> ccList, List<String> bccList) {
 
         org.apache.commons.mail.Email email
-        if (!params.html || params.html.equals(0)){
+        if (!params.html || params.html.equals(0)) {
             email = new SimpleEmail().setMsg(params.message)
 
         }
@@ -218,10 +194,9 @@ class EmailController {
             email.updateContentType('text/html')
         }
 
-        def conf = this.getConfig(toList,ccList,bccList);
-        if(conf == null){
+        def conf = this.getConfig(toList,ccList,bccList)
+        if (conf == null) {
             throw  new Exception(" Erro. Contas remetentes com quotas esgotadas e/ou inexistentes")
-
         }
 
         email.setHostName(conf.host)
@@ -282,21 +257,20 @@ class EmailController {
         }.start()
     }
     @Transactional
-    private void atualizarQuantidadeEnviadosDia(MultiPartEmail email){
+    private void atualizarQuantidadeEnviadosDia(MultiPartEmail email) {
 
-        String dia = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
-        def now = new SimpleDateFormat("dd/MM/yyyy").parse(dia);
+        String dia = new SimpleDateFormat("dd/MM/yyyy").format(new Date())
+        def now = new SimpleDateFormat("dd/MM/yyyy").parse(dia)
 
         def envios =  Envio.createCriteria().list{
             createAlias('email', 'email', CriteriaSpecification.INNER_JOIN)
             eq('email.username',email.getFromAddress().toString())
             eq('data',now)
             order('email.ordem','asc')
-
         }
 
         def configuracao = Configuracao.find(1)
-        if(configuracao == null)
+        if (configuracao == null)
         {
             configuracao = new Configuracao()
             configuracao.emailAlerta("sesaw@tre-to.jus.br")
@@ -310,7 +284,7 @@ class EmailController {
             envio.save flush:true
 
             //atingiu o limite, enviar email
-            if( ((envio.quantidade / envio.email.qtdeMaxima) * 100)  > configuracao.limiteAviso){
+            if ( ((envio.quantidade / envio.email.qtdeMaxima) * 100)  > configuracao.limiteAviso) {
 
                 def qtde = ((envio.quantidade / envio.email.qtdeMaxima) * 100).round(2)
                 def emailAlerta = new SimpleEmail().setMsg("O email ${envio.email.username} está usando  ${qtde}% da sua capacidade diária de envio   ")
@@ -328,7 +302,7 @@ class EmailController {
 
     }
     @Transactional
-    private void atualizarQuantidadeEnviadosDia(org.apache.commons.mail.Email email){
+    private void atualizarQuantidadeEnviadosDia(org.apache.commons.mail.Email email) {
 
         String dia = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
         def now = new SimpleDateFormat("dd/MM/yyyy").parse(dia);
@@ -338,19 +312,16 @@ class EmailController {
             eq('email.username',email.getFromAddress().toString())
             eq('data',now)
             order('email.ordem','asc')
-
         }
 
         def configuracao = this.getConfiguracaoEmailAlerta();
 
-
         envios.each{
             def envio = it
 
-
             println "emailid: "+envio.email.username
             //atingiu o limite, enviar email
-            if( ((envio.quantidade / envio.email.qtdeMaxima) * 100)  > configuracao.limiteAviso){
+            if ( ((envio.quantidade / envio.email.qtdeMaxima) * 100)  > configuracao.limiteAviso) {
 
                 def qtde = ((envio.quantidade / envio.email.qtdeMaxima) * 100).round(2)
                 def emailAlerta = new SimpleEmail()
@@ -367,7 +338,6 @@ class EmailController {
                 }
                 emailAlerta.send()
                 envio.quantidade++
-
             }
 
             envio.quantidade+=email.getToAddresses().size() + email.getCcAddresses().size() + email.getBccAddresses().size()
@@ -376,10 +346,9 @@ class EmailController {
 
     }
 
-    private Configuracao getConfiguracaoEmailAlerta(){
+    private Configuracao getConfiguracaoEmailAlerta() {
         def configuracao = Configuracao.get(1)
-        if(configuracao == null)
-        {
+        if (configuracao == null) {
             configuracao = new Configuracao()
             configuracao.emailAlerta("sesaw@tre-to.jus.br")
             configuracao.limiteAviso(80);
@@ -398,7 +367,7 @@ class EmailController {
 
     }
     private void sendEmail(MultiPartEmail email, Boolean alreadySent) {
-       email.send()
+        email.send()
         atualizarQuantidadeEnviadosDia(email)
     }
 }

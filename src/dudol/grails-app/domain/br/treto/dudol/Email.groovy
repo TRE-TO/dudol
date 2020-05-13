@@ -2,7 +2,6 @@ package br.treto.dudol
 
 class Email {
 
-
 	String host
 	Integer port
 	String username

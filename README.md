@@ -11,6 +11,7 @@ Ele é desenvolvido com o framework [Grails](http://grails.org) versão 4 e é r
 * [Agendamentos](#agendamentos)
 * [Gerenciamento](#gerenciamento)
 * [Docker](#docker)
+* [Contato](#contato)
 
 ## Objetivos
 
@@ -53,4 +54,8 @@ As imagens Docker estão publicamente disponíveis no [Docker Hub](https://hub.d
 Além disso, os arquivos `Dockerfile` e `docker-compose.yml` estão no projeto. Vale explicar melhor os volumes definidos no `docker-compose.yml`:
 
 * `./db:/var/lib/h2`: no diretório externo `db` será criado o arquivo usado pelo banco de dados H2 para a persistência dos dados.
-* `./config:/opt/config`: o diretório externo `config` contém o arquivo `application.yml`, que mantém as parâmetros que podem ser alterados conforme a instalação.
+* `./config:/opt/config`: o diretório externo `config` contém o arquivo `application.yml`, que mantém as parâmetros que podem ser alterados conforme a instalação. Caso o parâmetro `autenticarAdmin` tenha o valor "false", os demais parâmetros não precisam ser definidos.
+
+## Contato
+
+No caso de eventuais dúvidas, pode-se entrar em contato com os mantenedores pelo email <sesaw@tre-to.jus.br>.

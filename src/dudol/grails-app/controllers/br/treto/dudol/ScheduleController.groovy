@@ -3,11 +3,6 @@ package br.treto.dudol
 import grails.gorm.transactions.Transactional
 import groovy.json.JsonSlurper
 
-
-//import static org.springframework.http.HttpStatus.*
-//import grails.transaction.Transactional
-
-//@Transactional(readOnly = true)
 class ScheduleController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -20,7 +15,6 @@ class ScheduleController {
             statusList.add(ScheduleRefManager.isRunning(s.key))
         }
         render view:'index', model:[scheduleInstanceList:list, scheduleInstanceCount: Schedule.count(), statuses: statusList]
-      //  respond list, model:[scheduleInstanceCount: Schedule.count(), statuses: statusList]
     }
 
     def show(Integer id) {
@@ -33,21 +27,17 @@ class ScheduleController {
         if (s != null) {
             if (ScheduleRefManager.isRunning(s.key)) {
                 ScheduleRefManager.cancel(key)
-               // render 'false'
             }
             else {
                 ScheduleRefManager.start(s)
-               // render 'true'
             }
         }
         redirect action:"index"
     }
 
     def create() {
-
         Schedule scheduleInstance = new Schedule(params)
         render (view: "create", model:[scheduleInstance: scheduleInstance])
-        //respond new Schedule()
     }
 
     @Transactional
@@ -105,7 +95,6 @@ class ScheduleController {
 
     @Transactional
     def delete(Schedule scheduleInstance) {
-
         if (scheduleInstance == null) {
             notFound()
             return

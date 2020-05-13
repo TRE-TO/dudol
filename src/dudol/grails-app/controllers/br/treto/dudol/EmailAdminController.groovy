@@ -23,32 +23,32 @@ class EmailAdminController {
             createAlias('envios', 'e', JoinType.LEFT_OUTER_JOIN, Restrictions. eq('e.data',now))
 
             order('ordem','asc')
-
         }
       //  println "emails---:"+emails
        // def emails = Email.findAll([sort:"ordem"]);
         render (view: "index", model: [lista: emails])
     }
-    def edit(Integer id){
+    def edit(Integer id) {
 
         def email = Email.get(id)
-        if(request.method == 'GET'){
+        if (request.method == 'GET') {
 
             render (view:'edit', model:['emailInstance':email])
         }
     }
     @Transactional
-    def create(){
+    def create() {
 
-        if(request.method == 'GET'){
+        if (request.method == 'GET') {
             def email= new Email()
             render (view:'create', model:['emailInstance':email])
         }
-        else{
+        else {
             def e = Email.findAll([sort:"ordem", order:"desc", limit:1]);
             Integer ordem=1;
-            if(e.size() >0 && e[0] !=null)
-                ordem = e[0].ordem+1;
+            if (e.size() >0 && e[0] !=null) {
+                ordem = e[0].ordem+1
+            }
             Email email = new Email()
             email.host = params.host
             email.port = params.port.toInteger()
@@ -75,7 +75,7 @@ class EmailAdminController {
 
     }
     @Transactional
-    def excluir(Integer id){
+    def excluir(Integer id) {
         def email = Email.get(id)
         email.delete(flush:true)
         flash.message = "Dados excluídos"
@@ -83,10 +83,10 @@ class EmailAdminController {
 
     }
     @Transactional
-    def up(Integer id){
+    def up(Integer id) {
         def email = Email.get(id)
         def obj = Email.find("from Email as e where e.ordem < :ord order by  e.ordem desc",[ord:email.ordem])
-        if(obj!=null && obj.instanceOf(Email)){
+        if (obj!=null && obj.instanceOf(Email)) {
             Integer ord = email.ordem
             email.ordem = obj.ordem
             obj.ordem = ord
@@ -98,18 +98,17 @@ class EmailAdminController {
 
     }
     @Transactional
-    def down(Integer id){
+    def down(Integer id) {
         def email = Email.get(id)
 
         def obj = Email.find("from Email as e where e.ordem > :ord order by  e.ordem desc",[ord:email.ordem])
-        if(obj!=null && obj.instanceOf(Email)){
+        if (obj!=null && obj.instanceOf(Email)) {
             Integer ord = email.ordem
             email.ordem = obj.ordem
             obj.ordem = ord
             email.save flush:true
             obj.save flush:true
         }
-
 
         redirect action: "index", method: "GET"
 

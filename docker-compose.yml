@@ -5,7 +5,8 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - .:/var/lib/h2
+      - ./db:/var/lib/h2
+      - ./config:/opt/config
     working_dir: /opt
     container_name: dudol
 

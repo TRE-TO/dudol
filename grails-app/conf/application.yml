@@ -1,5 +1,6 @@
 ---
-autenticarAdmin: false
+# autenticarAdmin: considerando o definido em config/application.yml
+
 server:
     servlet:
         context-path: /dudol

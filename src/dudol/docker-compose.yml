@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   dudol:
-    image: tre-to/dudol:latest
+    image: treto/dudol:latest
     ports:
       - "8080:8080"
     volumes:
